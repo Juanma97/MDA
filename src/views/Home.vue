@@ -1,13 +1,15 @@
 <template>
-  <HelloWorld />
+  <div class="main">
+    <v-toolbar color="red">
+
+    </v-toolbar>
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
 
   export default {
     components: {
-      HelloWorld
     }
   }
 </script>
