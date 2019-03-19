@@ -18,17 +18,15 @@
     </v-toolbar-items>
 
   </v-toolbar>
-<div>
-
-  <v-container grid-list-md text-xs-center>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <v-car dark>
-          <v-car-tex>12</v-car-tex>
-        </v-car>
-      </v-flex>
-    </v-layout>
-  </v-container>
+<div class="grid-container">
+  <div class="item">
+    <div class=img></div> 
+    <div class=text><input type="text" name="producto" size=40><br></div>
+    <div class=bt>
+      <v-btn flat  dark >Products</v-btn>
+    </div>
+  </div>
+  
 </div>
 
   </div>
@@ -51,5 +49,29 @@
   float:none;
   text-align:center;
 }
+.grid-container{
+  display:grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
 
+}
+.grid-container > div {
+  text-align:center;
+  padding: 20px 0;
+  font-size:30px
+}
+.item{
+  background: gray;
+  width: 100%;
+  height: 100%;
+}
+
+.img{
+  src:"http://techexengineers.com/wp-content/uploads/2018/07/Testing.jpg";
+  width: 50%;
+  height: 50%;
+
+}
 </style>
