@@ -80,20 +80,19 @@ export default {
     login (){
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then((result) => {
-        alert("Logueado")
+        this.$router.replace('/')
       })
       .catch((error) => {
-        alert("Jajajajajaj")
+        alert("Usuario o contraseña incorrecto")
       })
     },
     register () {
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then((result) => {
-        alert("usuario creado")
+        this.$router.replace('/')
       })
       .catch((error) => {
-        alert("usuario no creado")
-        console.log("Error: " + error)
+        alert("Usuario no creado")
       })
     }
   }
@@ -172,7 +171,7 @@ p:hover{
 
 img{
   width: 120px;
-  height: 120px;
+  height: 130px;
 }
 </style>
 

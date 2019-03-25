@@ -1,99 +1,46 @@
 <template>
   <div class="main">
-    <v-toolbar extended extension-height=4 color="#00D4FF">
-      <v-btn @click="goHome" fab flat >
-        <v-icon x-large dark>home</v-icon>
-      </v-btn>
-      <v-toolbar-items>
-
-        <v-btn flat  dark >Products</v-btn>  
-
-      </v-toolbar-items>
-
-      <v-spacer></v-spacer>
-    
-      <v-toolbar-items>
-
-        <v-btn flat dark >Sing Up</v-btn>
-        <v-btn flat dark @click="goToLogIn">Sing In</v-btn>
-
-      </v-toolbar-items>
-
-    </v-toolbar>
-
+    <ToolbarComponent />
 
     <div class="flex-container">
       <div class="item">
-
         <div class=img> 
-
-          <img src="https://d3icht40s6fxmd.cloudfront.net/sites/default/files/test-product-test.png" alt="Test">
-
-        </div> 
-        <div>
-
-          <input class=text placeholder="Buscador..." type="text" name="producto" size=40 >   
-
+          <!--<img src="https://d3icht40s6fxmd.cloudfront.net/sites/default/files/test-product-test.png" alt="Test">-->
+          <h3>LOGO</h3>
         </div>
-        <div>
-          <v-btn class="bt" large outline button round color="#00D4FF"  > 
-            Search
-          </v-btn>
+        <div class="container-seeker">
+          <div class="seeker">
+            <v-text-field class="seeker_input"
+              append-icon="search">
+            </v-text-field>
+          </div>
         </div>
-    
-    
       </div>   
     </div>
-    <div class="responsive" >
-      <div class="gallery">
-        
-          <img src="https://nordestcycles.com/wp-content/uploads/2018/11/Bici-Albarda-ti-03.png" alt="Bici" width="600" height="400">
-
-          <div class="desc">BiciToWuapa</div>
+    <div class="grid-container">
+      <div v-for="item in 10" :key="item" class="item-grid">
+          <img src="https://nordestcycles.com/wp-content/uploads/2018/11/Bici-Albarda-ti-03.png" alt="Bici">
+          <h3>Titulo de producto</h3>
+          <p>Descripcion de producto</p>
       </div>
     </div>
-    <div class="responsive" >
-      <div class="gallery">
-        
-          <img src="https://www.promusica.es/90788-large_default/roland-go-piano-61-teclas.jpg" alt="Piano" width="600" height="400">
-          
-          <div class="desc">PianoToWuapo</div>
-      </div>
-    </div>
-    <div class="responsive" >
-      <div class="gallery">
-        
-          <img src="https://images-na.ssl-images-amazon.com/images/I/81O-SzinvoL._SX355_.jpg" alt="Teclado" width="600" height="400">
-          
-          <div class="desc">TecladoToWuapo</div>
-      </div>
-    </div>
-    <div class="responsive" >
-      <div class="gallery">
-        
-          <img src="https://www.worten.es/i/1dad1fa9e426d71c78d058d375e6df1421569090.jpg" alt="Portatil" width="600" height="400">
-          
-          <div class="desc">PortatilToWapo</div>
-      </div>
-    </div>
-    
-        
-  
   </div>
 
 </template>
 
 <script>
+import ToolbarComponent from '@/components/ToolbarComponent.vue';
 
   export default {
+    data() {
+      return{
+        value: true,
+      }
+    },
     components: {
+      ToolbarComponent,
     },
     methods: {
-      goToLogIn() {
-        this.$router.replace('login')
-      },goHome() {
-        this.$router.replace('/')
-      }
     }
   }
   
@@ -102,8 +49,9 @@
 
 <style scoped>
 .main{
-  
-  background:#3498db; 
+  background: white;
+  height: 100%;
+  overflow: scroll;
 }
 .v-btn{
   font-size: 18px;
@@ -118,69 +66,62 @@
   margin-right: 30px;
   margin-bottom: 30px;
 }
+.grid-container{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 8px;
+  width: 100%;
+  height: 100vh;
+  padding: 16px;
+}
+.item-grid{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
 
+.item-grid:hover{
+  cursor: pointer;
+}
+
+.item-grid img{
+  height: 90%;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid black;
+}
 
 .item{
-  
   width: 120px;
   height: 100%;
   flex: 1 1 auto;
   text-align: center;
-  
 }
 
 .img{
- 
+  margin-top: 8%;
+  margin-bottom: 4%;
   align-content: center;
   display:block;
   height: 60%;
+  font-size: 48px;
   
 }
 
-div.gallery {
-  border: 1px solid #ccc;
-}
-
-div.gallery:hover {
-  border: 1px solid #777;
-}
-
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
-
-div.desc {
-  padding: 15px;
-  text-align: center;
-  font-size: 22px;
-}
-
-
-
-.responsive {
-  padding: 0 6px;
-  float: left;
-  width: 25%;
-}
-
 @media only screen and (max-width: 700px) {
-  .responsive {
-    width: 50%;
-    margin: 6px 0;
+  .grid-container {
+    grid-template-columns: auto auto;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .responsive {
-    width: 100%;
+  .grid-container {
+    grid-template-columns: auto;
   }
 }
-
-
 .text{
-
- 
   font-size:22px;
   background-color: #00D4FF;
   border-radius: 25px;
@@ -192,10 +133,29 @@ div.desc {
   color:red;
 }
 .bt{
-  
   font-size:22px;
-  
+  border: 1px solid lightblue;
+  width: 150px;
+  height: 73px;
+  color: black;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container-seeker{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.seeker{
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
 
+.seeker_input{
+  width: 50% !important;
 }
 
 </style>
