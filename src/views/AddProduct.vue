@@ -7,10 +7,8 @@
     <v-text-field></v-text-field>
     <h3>Precio producto:</h3>
     <v-text-field></v-text-field>
-    <h3>Nombre producto:</h3>
+    <h3>Cantidad:</h3>
     <v-text-field></v-text-field>
-    <h3>¿Trueque?</h3>
-    <v-checkbox></v-checkbox>
     <v-btn @click="uploadProduct">Subir producto</v-btn>
   </div>
 </template>
