@@ -17,10 +17,25 @@
     <v-text-field
       v-model="quantityProduct"
     ></v-text-field>
-    <UploadImages number="First" @downloadURL="saveFirstImage"/>
-    <UploadImages number="Second" @downloadURL="saveSecondImage"/>
-    <UploadImages number="Third" @downloadURL="saveThirdImage"/>
-    <v-btn @click="uploadProduct">Subir producto</v-btn>
+    <div class="images">
+      <UploadImages number="First" @downloadURL="saveFirstImage"/>
+      <UploadImages number="Second" @downloadURL="saveSecondImage"/>
+      <UploadImages number="Third" @downloadURL="saveThirdImage"/>
+    </div>
+    <v-btn outline @click="uploadProduct">Subir producto</v-btn>
+    <v-progress-circular v-if="uploading" height=8 indeterminate></v-progress-circular>
+    <v-alert
+      :value="uploadSuccessfull"
+      type="success"
+    >
+      Product upload!
+    </v-alert>
+    <v-alert
+      :value="uploadFail"
+      type="warning"
+    >
+      Error!
+    </v-alert>
   </div>
 </template>
 
@@ -29,6 +44,7 @@
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import UploadImages from '@/components/UploadImages.vue';
 import firebase from 'firebase';
+import { setTimeout } from 'timers';
 
 export default {
   name: 'AddProduct',
@@ -42,10 +58,14 @@ export default {
       descriptionProduct: '',
       priceProduct: '',
       quantityProduct: '',
+      uploading: false,
+      uploadSuccessfull: false,
+      uploadFail: false,
     }
   },
   methods: {
     uploadProduct() {
+      this.uploading = true;
       var ref = firebase.database().ref('/products')
       ref.push({
         nameProduct: this.nameProduct,
@@ -55,6 +75,12 @@ export default {
         image1: this.image1,
         image2: this.image2,
         image3: this.image3,
+      }).then(() => {
+        this.uploadSuccessfull = true;
+        this.uploading = false;
+      }).catch(() => {
+        this.uploadFail = true;
+        this.uploading = false;
       })
     },
     saveFirstImage(value){
@@ -73,6 +99,46 @@ export default {
 <style scoped>
 .main-addproduct{
   padding: 16px;
+  position: relative;
+  height: 100%;
+}
+.images{
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  width: 100%;
+  border: 1px solid black;
+}
+.images img{
+  height: 50px;
+  width: 50px;
+}
+.v-btn{
+  width: 100%;
+  color: #3498db;
+}
+.v-progress-circular{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #3498db;
+  z-index: 2;
+}
+.gray{
+  position: absolute;
+  top: 9%;
+  left: 0;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  background: grey;
+  z-index: 1;
+}
+.v-alert{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
 </style>
 
