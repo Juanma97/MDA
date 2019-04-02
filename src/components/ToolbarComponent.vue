@@ -52,6 +52,10 @@ export default {
       firebase.auth().signOut()
       .then(() => {
         this.$router.replace('/')
+        this.isRegister = false;
+      })
+      .catch(() => {
+        alert('No se ha podido cerrar sesión')
       })
     }
   }
