@@ -27,12 +27,14 @@
     <v-alert
       :value="uploadSuccessfull"
       type="success"
+      dismissible
     >
       Product upload!
     </v-alert>
     <v-alert
       :value="uploadFail"
       type="warning"
+      dismissible
     >
       Error!
     </v-alert>
