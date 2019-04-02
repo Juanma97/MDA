@@ -11,8 +11,8 @@
       <v-spacer></v-spacer>
     
       <v-toolbar-items>
-        <v-btn v-if="!isRegister" flat dark @click="goToLogin">Access</v-btn>
         <v-btn flat dark @click="goToViewProductPage">View Products</v-btn>
+        <v-btn v-if="!isRegister" flat dark @click="goToLogin">Access</v-btn>
         <v-btn v-if="isRegister" flat dark>Perfil</v-btn>
         <v-btn v-if="isRegister" flat dark @click="logout">Logout</v-btn>
       </v-toolbar-items>
