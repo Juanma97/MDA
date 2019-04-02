@@ -33,11 +33,11 @@ import * as firebase from 'firebase'
     },
     methods: {
         goToDetailsProducts(item){
-            this.$router.push({name: 'detailsproducts', params: {item: item}})
+            this.$router.push({name: 'DetailsProducts', params: {item: item}})
         },
     },
     created() {
-        console.log("Empiezo")
+        //console.log("Empiezo")
         var ref = firebase.database().ref('/products')
         ref.once('value',(snapshot) => {
             snapshot.forEach((child)=>{
@@ -46,12 +46,6 @@ import * as firebase from 'firebase'
         })
     }
   }
-
-
-
-
-
-  
 </script>
 
 
