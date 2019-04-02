@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import AddProduct from './views/AddProduct.vue';
+import DetailsProducts from './views/DetailsProducts.vue';
 
 Vue.use(Router);
 
@@ -23,6 +24,11 @@ export default new Router({
       name: 'AddProduct',
       path: '/addproduct',
       component: AddProduct,
+    },
+    {
+      name: 'DetailsProducts',
+      path: '/detailsproducts',
+      component: DetailsProducts,
     },
   ],
 });
