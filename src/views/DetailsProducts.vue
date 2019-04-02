@@ -1,34 +1,15 @@
 <template>
     <div>
-        <ToolbarComponent />
-        <h3>{{variable.nameProduct}}</h3>
+        <h3>
+            hola
+        </h3>
     </div>
 </template>
+
 <script>
-import ToolbarComponent from '@/components/ToolbarComponent.vue';
-import firebase from 'firebase';
-
-export default {
-    name:'DetailsProducts',
-    components: {
-        ToolbarComponent,
-
-    },
-    data(){
-     return{
-         variable: null
-     }
-    }
-    methods:{
-        this.$route.params
-    }
-   
-    
-}
+import * as firebase from 'firebase'
+export default ({
+    name: 'DetailsProducts',
+})
 </script>
-
-<style>
-
-</style>
-
 
