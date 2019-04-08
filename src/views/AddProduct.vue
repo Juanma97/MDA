@@ -8,10 +8,8 @@
     <h3>Precio producto:</h3>
     <v-text-field></v-text-field>
     <h3>Cantidad:</h3>
-<<<<<<< HEAD
     <v-text-field></v-text-field>
     <v-btn @click="uploadProduct">Subir producto</v-btn>
-=======
     <v-text-field
       v-model="quantityProduct"
     ></v-text-field>
@@ -36,7 +34,6 @@
     >
       Error!
     </v-alert>
->>>>>>> 45dea51fca5083b92771dde4e2dbe10bbb99b6f7
   </div>
 </template>
 
@@ -59,9 +56,7 @@ export default {
     uploadProduct() {
       var ref = firebase.database().ref('/products')
       ref.push({
-<<<<<<< HEAD
 
-=======
         nameProduct: this.nameProduct,
         descriptionProduct: this.descriptionProduct,
         priceProduct: this.priceProduct,
@@ -76,7 +71,6 @@ export default {
       }).catch(() => {
         this.uploadFail = true;
         this.uploading = false;
->>>>>>> 45dea51fca5083b92771dde4e2dbe10bbb99b6f7
       })
     }
   }
