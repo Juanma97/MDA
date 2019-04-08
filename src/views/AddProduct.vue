@@ -2,13 +2,18 @@
   <div class="main-addproduct">
     <ToolbarComponent />
     <h3 style="margin-top: 64px">Nombre producto:</h3>
-    <v-text-field></v-text-field>
+    <v-text-field
+      v-model="nameProduct"
+    ></v-text-field>
     <h3>Descripcion producto:</h3>
-    <v-text-field></v-text-field>
+    <v-text-field
+      v-model="descriptionProduct"
+    ></v-text-field>
     <h3>Precio producto:</h3>
-    <v-text-field></v-text-field>
+    <v-text-field
+      v-model="priceProduct"
+    ></v-text-field>
     <h3>Cantidad:</h3>
-    <v-text-field></v-text-field>
     <v-text-field
       v-model="quantityProduct"
     ></v-text-field>
@@ -51,6 +56,9 @@ export default {
   data() {
     return {
       nameProduct: '',
+      priceProduct: '',
+      quantityProduct: '',
+      descriptionProduct: '',
     }
   },
   methods: {
@@ -80,6 +88,9 @@ export default {
 <style scoped>
 .main-addproduct{
   padding: 16px;
+}
+.images{
+  display: flex;
 }
 </style>
 
