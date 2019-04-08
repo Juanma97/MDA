@@ -2,11 +2,17 @@
   <div class="main-addproduct">
     <ToolbarComponent />
     <h3 style="margin-top: 64px">Nombre producto:</h3>
-    <v-text-field></v-text-field>
+    <v-text-field
+      v-model="nameProduct"
+    ></v-text-field>
     <h3>Descripcion producto:</h3>
-    <v-text-field></v-text-field>
+    <v-text-field
+      v-model="descriptionProduct"
+    ></v-text-field>
     <h3>Precio producto:</h3>
-    <v-text-field></v-text-field>
+    <v-text-field
+      v-model="priceProduct"
+    ></v-text-field>
     <h3>Cantidad:</h3>
     <v-text-field
       v-model="quantityProduct"
@@ -38,25 +44,32 @@
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
+import UploadImages from '@/components/UploadImages.vue';
 import firebase from 'firebase';
+import { setTimeout } from 'timers';
 
 export default {
   name: 'AddProduct',
   components: {
     ToolbarComponent,
+    UploadImages,
   },
   data() {
     return {
       nameProduct: '',
+      descriptionProduct: '',
+      priceProduct: '',
+      quantityProduct: '',
+      uploading: false,
+      uploadSuccessfull: false,
+      uploadFail: false,
     }
   },
   methods: {
     uploadProduct() {
+      this.uploading = true;
       var ref = firebase.database().ref('/products')
       ref.push({
-<<<<<<< HEAD
-
-=======
         nameProduct: this.nameProduct,
         descriptionProduct: this.descriptionProduct,
         priceProduct: this.priceProduct,
@@ -71,9 +84,17 @@ export default {
       }).catch(() => {
         this.uploadFail = true;
         this.uploading = false;
->>>>>>> 45dea51fca5083b92771dde4e2dbe10bbb99b6f7
       })
-    }
+    },
+    saveFirstImage(value){
+      this.image1 = value
+    },
+    saveSecondImage(value){
+      this.image2 = value
+    },
+    saveThirdImage(value){
+      this.image3 = value
+    },
   }
 }
 </script>
@@ -81,6 +102,46 @@ export default {
 <style scoped>
 .main-addproduct{
   padding: 16px;
+  position: relative;
+  height: 100%;
+}
+.images{
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  width: 100%;
+  border: 1px solid black;
+}
+.images img{
+  height: 50px;
+  width: 50px;
+}
+.v-btn{
+  width: 100%;
+  color: #3498db;
+}
+.v-progress-circular{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #3498db;
+  z-index: 2;
+}
+.gray{
+  position: absolute;
+  top: 9%;
+  left: 0;
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  background: grey;
+  z-index: 1;
+}
+.v-alert{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
 }
 </style>
 
