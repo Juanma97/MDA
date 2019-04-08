@@ -6,6 +6,8 @@ import store from './store';
 import firebase from 'firebase';
 import Vuetify from 'vuetify';
 
+
+
  // Initialize Firebase
  const config = {
   apiKey: "AIzaSyDyFjixJxxSNBmXqusJ8COmkju2pG8NB5I",
@@ -21,6 +23,7 @@ const appDB = firebase.initializeApp(config);
 export const db = appDB.database();
 
 Vue.use(Vuetify);
+
 
 Vue.config.productionTip = false;
 

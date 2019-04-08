@@ -27,8 +27,8 @@ export default new Router({
       component: AddProduct,
     },
     {
-      name: 'ProductView',
-      path: '/productview',
+      name: 'ProductsView',
+      path: '/productsview',
       component: ProductsView,
     },
     {
