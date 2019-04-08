@@ -9,7 +9,6 @@
     <v-text-field></v-text-field>
     <h3>Cantidad:</h3>
     <v-text-field></v-text-field>
-    <v-btn @click="uploadProduct">Subir producto</v-btn>
     <v-text-field
       v-model="quantityProduct"
     ></v-text-field>
@@ -40,12 +39,14 @@
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
+import UploadImages from '@/components/UploadImages.vue';
 import firebase from 'firebase';
 
 export default {
   name: 'AddProduct',
   components: {
     ToolbarComponent,
+    UploadImages,
   },
   data() {
     return {
@@ -56,7 +57,6 @@ export default {
     uploadProduct() {
       var ref = firebase.database().ref('/products')
       ref.push({
-
         nameProduct: this.nameProduct,
         descriptionProduct: this.descriptionProduct,
         priceProduct: this.priceProduct,
