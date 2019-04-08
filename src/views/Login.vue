@@ -28,28 +28,72 @@
 
       <v-card v-if="showRegisterForm">
         <v-text-field
+          v-model="name"
+          placeholder="name"
+          append-icon="face"
+          type="text"
+        ></v-text-field>
+        <v-text-field
+          v-model="lastname"
+          placeholder="lastname"
+          append-icon="face"
+          type="text"
+        ></v-text-field>
+        <v-text-field
           v-model="email"
           placeholder="email@email.com"
           append-icon="email"
           type="email"
         ></v-text-field>
-        <v-text-field
-          v-model="password"
+        <v-text-field 
+          v-model="password"  
           placeholder="password"
-          append-icon="lock"
-          type="password"
+          :append-icon="visible ? 'visibility_off' : 'visibility'"
+          @click:append="() => (visible = !visible)"
+          :type="visible ? 'text' : 'password'"
+          counter="6"
         ></v-text-field>
-        <v-text-field
+        <v-text-field 
+          v-model="repeat_password"  
           placeholder="repeat password"
-          append-icon="lock"
-          type="password"
+          :append-icon="visible_repeat ? 'visibility_off' : 'visibility'"
+          @click:append="() => (visible_repeat = !visible_repeat)"
+          :type="visible_repeat ? 'text' : 'password'"
+          counter="6"
         ></v-text-field>
         <v-btn color="#3498db" outline @click="register">
           Register
         </v-btn>
         <p @click="showRegisterForm = !showRegisterForm">Already have a account?</p>
       </v-card>
-
+      <v-alert
+        :value="error"
+        type="error"
+        dismissible
+      >
+        User not created!
+      </v-alert>
+      <v-alert
+        :value="errorLogin"
+        type="error"
+        dismissible
+      >
+        Login error!
+      </v-alert>
+      <v-alert
+        :value="errorPasswords"
+        type="error"
+        dismissible
+      >
+        Passwords are not equal!
+      </v-alert>
+      <v-alert
+        :value="errorFields"
+        type="error"
+        dismissible
+      >
+        Check fields!
+      </v-alert>
     </div>
     <div class="footer">
       <p>About us</p>
@@ -70,7 +114,16 @@ export default {
     return {
       email: '',
       password: '',
+      repeat_password: '',
+      name: '',
+      lastname: '',
       showRegisterForm: false,
+      visible: false,
+      visible_repeat: false,
+      error: false,
+      errorPasswords: false,
+      errorLogin: false,
+      errorFields: false,
     }
   },
   methods: {
@@ -78,21 +131,54 @@ export default {
       this.$router.replace('/');
     },
     login (){
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then((result) => {
-        this.$router.replace('/')
-      })
-      .catch((error) => {
-        alert("Usuario o contraseña incorrecto")
-      })
+      if(this.checkFieldsLogin()){
+        firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+        .then((result) => {
+          this.$router.replace('/')
+        })
+        .catch((error) => {
+          this.errorLogin = true;
+        })
+      }else{
+        this.errorFields = true;
+      }
     },
     register () {
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-      .then((result) => {
-        this.$router.replace('/')
+      if(this.checkFieldsRegister()){
+        if(this.checkPasswords()){
+          firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          .then((result) => {
+            this.$router.replace('/')
+            this.saveDataUser(result.user.uid);
+          })
+          .catch((error) => {
+            this.error = true;
+          })
+        }else{
+          this.errorPasswords = true;
+        }
+      }else{
+        this.errorFields = true;
+      }
+    },
+    checkPasswords(){
+      return this.password == this.repeat_password;
+    },
+    checkFieldsRegister(){
+      return !(this.name === "" || this.lastname === "" || 
+              this.email === "" || this.password === "" || this.repeat_password === "")
+    },
+    checkFieldsLogin(){
+      return !(this.email === "" || this.password === "")
+    },
+    saveDataUser(uid){
+      var ref = firebase.database().ref('/users').child(uid)
+      ref.set({
+        name: this.name,
+        lastname: this.lastname,
+        email: this.email,
       })
-      .catch((error) => {
-        alert("Usuario no creado")
+      .then(() => {
       })
     }
   }
@@ -170,8 +256,12 @@ p:hover{
 }
 
 img{
-  width: 120px;
-  height: 130px;
+  width: 50px;
+  height: 60px;
+}
+
+.v-alert{
+  width: 100%;
 }
 </style>
 

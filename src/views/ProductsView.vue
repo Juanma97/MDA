@@ -10,6 +10,9 @@
           <img :src="item.image1" @click="goToDetailsProducts(item)">
           <h3>{{item.nameProduct}}</h3>
           <p>{{item.descriptionProduct}}</p>
+          <p>{{item.priceProduct}} €</p>
+          <p v-if="parseInt(item.quantityProduct) > 1">{{item.quantityProduct}} units</p>
+          <p v-if="parseInt(item.quantityProduct) == 1">{{item.quantityProduct}} unit</p>
       </div>
     </div>
   </div>
@@ -75,6 +78,7 @@ import * as firebase from 'firebase'
   width: 100%;
   height: 100vh;
   padding: 16px;
+  margin-top: 7%;
 }
 .item-grid{
   height: 100%;
@@ -158,6 +162,9 @@ import * as firebase from 'firebase'
 
 .seeker_input{
   width: 50% !important;
+}
+p{
+  margin: 0;
 }
 
 </style>
