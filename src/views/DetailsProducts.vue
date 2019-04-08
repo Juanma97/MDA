@@ -1,7 +1,7 @@
 <template>
-    <div style="position: relative">
+    <div style="position: relative; height: 100vh;">
     <ToolbarComponent />  
-        <v-carousel height="300">
+        <v-carousel height="400">
             <v-carousel-item
             :src="this.item.image1"
             reverse-transition="fade"
@@ -32,7 +32,7 @@
                 <td>{{item.priceProduct}}</td>
                 <td>{{item.quantityProduct}}</td>
                 <td>{{item.descriptionProduct}}</td>
-                <td>{{item.uid}}</td>
+                <td>{{nameSeller}}</td>
             </tr> 
             </tbody>
 
@@ -57,12 +57,17 @@ export default ({
     },
     created() {
         this.item = this.$route.params.item
+        var ref = firebase.database().ref('/users/'+this.item.uid)
+        ref.once('value', (snapshot) => {
+            this.nameSeller = snapshot.val().name;
+        })
     },
    data () {
     return {
        item: null,
        buySuccessful: false,
        errorLogin: false,
+       nameSeller: '',
     }
   },
   methods: {
