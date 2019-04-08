@@ -2,9 +2,9 @@
   <div class="main">
     <ToolbarComponent />
 
-    <v-toolbar >
+    <v-toolbar class="toolbar2" color="#3498db"  >
 
-      <v-toolbar-items>
+      <v-toolbar-items >
         <v-btn flat dark>My products</v-btn>
         <v-btn flat dark>My sells</v-btn>
         <v-btn flat dark>History</v-btn>
@@ -12,12 +12,19 @@
       </v-toolbar-items>
 
     </v-toolbar>
-
-    <div class="flex-container">
-        
-    </div>
     <div class="grid-container">
-      
+      <div v-for="(item, index) in products" :key="index" class="item-grid">
+        <div v-if="user == item.uid">
+          <img :src="item.image1" @click="goToDetailsProducts(item)">
+          <h3>{{item.nameProduct}}</h3>
+          <p>{{item.descriptionProduct}}</p>
+          <p>{{item.priceProduct}} €</p>
+          <p>{{item.uid}} y {{user}} €</p>
+          <p v-if="parseInt(item.quantityProduct) > 1">{{item.quantityProduct}} units</p>
+          <p v-if="parseInt(item.quantityProduct) == 1">{{item.quantityProduct}} unit</p>
+        </div>
+          >
+      </div>
     </div>
   </div>
 
@@ -26,23 +33,28 @@
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import * as firebase from 'firebase'
-
+  
   export default {
     name: 'Profile',
     data() {
       return{
         value: true,
         products: [],
+        user: "",
+        
       }
     },
     components: {
       ToolbarComponent,
     },
     methods: {
-        
+        goToDetailsProducts(item){
+            this.$router.push({name: 'DetailsProducts', params: {item: item}})
+        },
     },
     created() {
         var ref = firebase.database().ref('/products')
+        this.user=firebase.auth().currentUser.uid
         ref.once('value',(snapshot) => {
             snapshot.forEach((child)=>{
                 this.products.push(child.val())
@@ -61,6 +73,9 @@ import * as firebase from 'firebase'
 }
 .v-btn{
   font-size: 18px;
+}
+.toolbar2.v-toolbar{
+  margin-top: 65px !important;
 }
 .v-toolbar{
   float:none;
@@ -116,6 +131,8 @@ import * as firebase from 'firebase'
   font-size: 48px;
   
 }
+
+
 
 @media only screen and (max-width: 700px) {
   .grid-container {
