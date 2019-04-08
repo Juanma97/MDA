@@ -74,6 +74,7 @@ export default {
         descriptionProduct: this.descriptionProduct,
         priceProduct: this.priceProduct,
         quantityProduct: this.quantityProduct,
+        uid: firebase.auth().currentUser.uid,
         image1: this.image1,
         image2: this.image2,
         image3: this.image3,
