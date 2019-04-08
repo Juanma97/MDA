@@ -13,6 +13,7 @@
                 <th class='text'>Price</th>
                 <th class='text'>Quantity</th>
                 <th class='text'>Description</th>
+                <th class='text'>Seller</th>
             </tr>
             <tbody>
             <tr>
@@ -20,6 +21,7 @@
                 <td>{{item.priceProduct}}</td>
                 <td>{{item.quantityProduct}}</td>
                 <td>{{item.descriptionProduct}}</td>
+                <td>{{item.uid}}</td>
             </tr> 
             </tbody>
 
