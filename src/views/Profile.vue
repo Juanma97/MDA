@@ -5,15 +5,15 @@
     <v-toolbar class="toolbar2" color="#3498db">
 
       <v-toolbar-items >
-        <v-btn flat dark>My products</v-btn>
-        <v-btn flat dark>My sells</v-btn>
-        <v-btn flat dark>History</v-btn>
+        <v-btn flat dark @click="show(1)">My products</v-btn>
+        <v-btn flat dark @click="show(2)" >My sells</v-btn>
+        <v-btn flat dark @click="show(3)">History</v-btn>
         
       </v-toolbar-items>
 
     </v-toolbar>
 
-    <div class="container">
+    <div v-if="this.showProducts" class="container">
       <div class="product" v-for="(item,index) in products" :key="index">
         <div class="proc">
           <img class="img" :src="item.image1" @click="goToDetailsProducts(item)">
@@ -23,9 +23,22 @@
           <v-btn flat >Modify</v-btn>
           <v-btn flat >Delete</v-btn>
         </div>
-        
       </div>
     </div>
+
+
+    <div v-if="this.showHistory" class="container">
+      <div class="transactions" v-for="(item,index) in history" :key="index">
+        <div class="transaction">
+          <div>Seller by: {{item.nameSeller}} {{item.lastname}}</div>
+          <div>Product: {{item.item.nameProduct}}</div>
+          <div>Price: {{item.item.priceProduct}}€</div>
+          <div>Send to: {{item.direction}}</div>
+          <div>Delivered to: {{item.name}}</div>
+        </div>
+      </div>  
+    </div>
+
   </div>
 
 </template>
@@ -44,6 +57,7 @@ import * as firebase from 'firebase'
         showProducts: true,
         showSellProducts: false,
         showHistory: false,
+        history: [],
         
       }
     },
@@ -53,6 +67,20 @@ import * as firebase from 'firebase'
     methods: {
         goToDetailsProducts(item){
             this.$router.push({name: 'DetailsProducts', params: {item: item}})
+        },
+        show(navNumber) {
+          
+          this.showProducts = false
+          this.showSellProducts = false
+          this.showHistory = false
+
+          if(navNumber == 1) {
+            this.showProducts = true
+          } else if(navNumber == 2) {
+            this.showSellProducts = true
+          } else if(navNumber == 3) {
+            this.showHistory = true
+          }
         },
     },
     created() {
@@ -66,6 +94,12 @@ import * as firebase from 'firebase'
                 
             })
         })
+        var refHistory = firebase.database().ref('/historial_compras/'+firebase.auth().currentUser.uid)
+        refHistory.once('value',(snapshot) => {
+            snapshot.forEach((child)=>{
+              this.history.push(child.val())
+            })
+        })
 
     }
   }
@@ -73,6 +107,12 @@ import * as firebase from 'firebase'
 
 
 <style scoped>
+
+.img {
+  height: 115px;
+  width: 225px;
+}
+
 .product {
   border-bottom: 1px solid black;
   width: 100%;
@@ -80,6 +120,15 @@ import * as firebase from 'firebase'
   margin-top: 10px;
   display: flex;
 }
+
+.transactions{
+  border-bottom: 1px solid black;
+  width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  display: flex; 
+}
+
 .container {
   height: 100vh;
   width: 100%;
@@ -100,6 +149,20 @@ import * as firebase from 'firebase'
   align-items: center;
   font-size: 25px;
   
+}
+
+.transaction {
+  flex-grow: 1;
+  display: flex;
+  height: 100%;
+}
+
+.transaction div {
+  padding-left: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
 }
 
 .buttons {
