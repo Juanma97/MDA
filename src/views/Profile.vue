@@ -105,26 +105,8 @@ import * as firebase from 'firebase'
 .buttons {
   display: flex;
   height: 100%;
+  align-items: center;
 }
-
-/*.img{
- margin-top: 8%;
-  margin-bottom: 4%;
-  align-content: center;
-  display:block;
-  height: 60%;
-  font-size: 48px;
-  height: 80%;
-  width: 6%;
-  
-  
-}
-
-.title {
-  text-align: center;
-  
-}
-*/
 
 
 .main{
