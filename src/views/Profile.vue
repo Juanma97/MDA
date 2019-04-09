@@ -2,7 +2,7 @@
   <div class="main">
     <ToolbarComponent />
 
-    <v-toolbar class="toolbar2" color="#3498db"  >
+    <v-toolbar class="toolbar2" color="#3498db">
 
       <v-toolbar-items >
         <v-btn flat dark>My products</v-btn>
@@ -19,11 +19,10 @@
           <h3>{{item.nameProduct}}</h3>
           <p>{{item.descriptionProduct}}</p>
           <p>{{item.priceProduct}} €</p>
-          <p>{{item.uid}} y {{user}} €</p>
           <p v-if="parseInt(item.quantityProduct) > 1">{{item.quantityProduct}} units</p>
           <p v-if="parseInt(item.quantityProduct) == 1">{{item.quantityProduct}} unit</p>
         </div>
-          >
+      
       </div>
     </div>
   </div>
