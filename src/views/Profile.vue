@@ -12,17 +12,18 @@
       </v-toolbar-items>
 
     </v-toolbar>
-    <div class="grid-container">
-      <div v-for="(item, index) in products" :key="index" class="item-grid">
-        <div v-if="user == item.uid">
-          <img :src="item.image1" @click="goToDetailsProducts(item)">
-          <h3>{{item.nameProduct}}</h3>
-          <p>{{item.descriptionProduct}}</p>
-          <p>{{item.priceProduct}} €</p>
-          <p v-if="parseInt(item.quantityProduct) > 1">{{item.quantityProduct}} units</p>
-          <p v-if="parseInt(item.quantityProduct) == 1">{{item.quantityProduct}} unit</p>
+
+    <div class="container">
+      <div class="product" v-for="(item,index) in products" :key="index">
+        <div class="proc">
+          <img class="img" :src="item.image1" @click="goToDetailsProducts(item)">
+          <div>{{item.nameProduct}}</div>
         </div>
-      
+        <div class="buttons">
+          <v-btn flat >Modify</v-btn>
+          <v-btn flat >Delete</v-btn>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -40,6 +41,9 @@ import * as firebase from 'firebase'
         value: true,
         products: [],
         user: "",
+        showProducts: true,
+        showSellProducts: false,
+        showHistory: false,
         
       }
     },
@@ -56,15 +60,73 @@ import * as firebase from 'firebase'
         this.user=firebase.auth().currentUser.uid
         ref.once('value',(snapshot) => {
             snapshot.forEach((child)=>{
+              if (child.val().uid == this.user) {
                 this.products.push(child.val())
+              }
+                
             })
         })
+
     }
   }
 </script>
 
 
 <style scoped>
+.product {
+  border-bottom: 1px solid black;
+  width: 100%;
+  height: 150px;
+  margin-top: 10px;
+  display: flex;
+}
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.proc {
+  flex-grow: 1;
+  display: flex;
+  height: 100%;
+}
+.proc div{
+  padding-left: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  
+}
+
+.buttons {
+  display: flex;
+  height: 100%;
+}
+
+/*.img{
+ margin-top: 8%;
+  margin-bottom: 4%;
+  align-content: center;
+  display:block;
+  height: 60%;
+  font-size: 48px;
+  height: 80%;
+  width: 6%;
+  
+  
+}
+
+.title {
+  text-align: center;
+  
+}
+*/
+
+
 .main{
   background: white;
   height: 100%;
@@ -121,15 +183,6 @@ import * as firebase from 'firebase'
   text-align: center;
 }
 
-.img{
-  margin-top: 8%;
-  margin-bottom: 4%;
-  align-content: center;
-  display:block;
-  height: 60%;
-  font-size: 48px;
-  
-}
 
 
 
