@@ -13,7 +13,7 @@
       <v-toolbar-items>
         <v-btn flat dark @click="goToViewProductPage">View Products</v-btn>
         <v-btn v-if="!isRegister" flat dark @click="goToLogin">Access</v-btn>
-        <v-btn v-if="isRegister" flat dark>Perfil</v-btn>
+        <v-btn v-if="isRegister" flat dark @click="goToProfile">Perfil</v-btn>
         <v-btn v-if="isRegister" flat dark @click="logout">Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -47,6 +47,9 @@ export default {
     },
     goToViewProductPage() {
       this.$router.replace('productsview')
+    },
+    goToProfile() {
+      this.$router.replace('profile')
     },
     logout() {
       firebase.auth().signOut()
