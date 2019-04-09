@@ -70,7 +70,7 @@ export default ({
        item: null,
        buySuccessful: false,
        errorLogin: false,
-       showForm: true,
+       showForm: false,
        nameSeller: '',
        name: '',
        lastname: '',
