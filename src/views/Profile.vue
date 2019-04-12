@@ -73,19 +73,22 @@ import * as firebase from 'firebase'
             snapshot.forEach((child) => {
                 if(child.val().nameProduct ==  item.nameProduct) {
                 this.deleteItem(child.key);
+                this.$router.replace('profile');
                 }
-
               })
             })
           },
         
-   
-
-
-
         deleteItem (key) {
-          console.log(key);
-          firebase.database().ref('/products/'+ key).remove();
+         if(confirm("Are you sure you want to remove this product?")){
+           firebase.database().ref('/products/'+ key).remove();
+           alert("Producto eliminado correctamente");
+           location.reload();
+         }
+          
+        },
+        goToAddProductPage() {
+          this.$router.replace('addproduct')
         },
         goToDetailsProducts(item){
             this.$router.push({name: 'DetailsProducts', params: {item: item}})
