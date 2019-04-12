@@ -21,7 +21,7 @@
         </div>
         <div class="buttons">
           <v-btn flat >Modify</v-btn>
-          <v-btn flat >Delete</v-btn>
+          <v-btn flat @click="eliminate(item)">Delete</v-btn>
         </div>
       </div>
     </div>
@@ -65,6 +65,28 @@ import * as firebase from 'firebase'
       ToolbarComponent,
     },
     methods: {
+      
+        eliminate(item){
+          var ref = firebase.database().ref('/products');
+
+          ref.once('value', (snapshot) => {
+            snapshot.forEach((child) => {
+                if(child.val().nameProduct ==  item.nameProduct) {
+                this.deleteItem(child.key);
+                }
+
+              })
+            })
+          },
+        
+   
+
+
+
+        deleteItem (key) {
+          console.log(key);
+          firebase.database().ref('/products/'+ key).remove();
+        },
         goToDetailsProducts(item){
             this.$router.push({name: 'DetailsProducts', params: {item: item}})
         },
