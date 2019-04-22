@@ -72,18 +72,21 @@ import * as firebase from 'firebase'
           ref.once('value', (snapshot) => {
             snapshot.forEach((child) => {
                 if(child.val().nameProduct ==  item.nameProduct) {
-                this.deleteItem(child.key);
+                this.deleteItem(child.key, item);
                 this.$router.replace('profile');
                 }
               })
             })
           },
         
-        deleteItem (key) {
+        deleteItem (key, item) {
          if(confirm("Are you sure you want to remove this product?")){
-           firebase.database().ref('/products/'+ key).remove();
-           alert("Producto eliminado correctamente");
-           location.reload();
+           firebase.database().ref('/products/'+ key).remove()
+            .then(() => {
+              alert("Producto eliminado correctamente");
+              var index = this.products.indexOf(item);
+              this.products.splice(index, 1);
+            })
          }
           
         },
