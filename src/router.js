@@ -6,7 +6,7 @@ import AddProduct from './views/AddProduct.vue';
 import ProductsView from './views/ProductsView.vue';
 import DetailsProducts from './views/DetailsProducts.vue';
 import Profile from './views/Profile.vue';
-
+import ModifyProduct from './views/ModifyProduct.vue'
 Vue.use(Router);
 
 export default new Router({
@@ -41,6 +41,11 @@ export default new Router({
       name: 'Profile',
       path: '/profile',
       component: Profile,
+    },
+    {
+      name: 'ModifyProduct',
+      path: '/ModifyProduct',
+      component: ModifyProduct,
     },
   ],
 });

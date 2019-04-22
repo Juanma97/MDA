@@ -20,7 +20,7 @@
           <div>{{item.nameProduct}}</div>
         </div>
         <div class="buttons">
-          <v-btn flat >Modify</v-btn>
+          <v-btn flat @click="goToModify(item)">Modify</v-btn>
           <v-btn flat @click="eliminate(item)">Delete</v-btn>
         </div>
       </div>
@@ -86,6 +86,9 @@ import * as firebase from 'firebase'
            location.reload();
          }
           
+        },
+        goToModify(item) {
+          this.$router.push({name: 'ModifyProduct', params: {item: item}})
         },
         goToAddProductPage() {
           this.$router.replace('addproduct')

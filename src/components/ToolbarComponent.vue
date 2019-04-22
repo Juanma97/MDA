@@ -51,6 +51,9 @@ export default {
     goToProfile() {
       this.$router.replace('profile')
     },
+     goToModify() {
+      this.$router.replace('ModifyProduct')
+    },
     logout() {
       firebase.auth().signOut()
       .then(() => {
