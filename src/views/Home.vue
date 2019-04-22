@@ -6,7 +6,7 @@
       <div class="item">
         <div class=img> 
           <!--<img src="https://d3icht40s6fxmd.cloudfront.net/sites/default/files/test-product-test.png" alt="Test">-->
-          <h3>LOGO</h3>
+          <h3>EASYBUY</h3>
         </div>
         <div class="container-seeker">
           <div class="seeker">
