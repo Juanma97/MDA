@@ -13,6 +13,14 @@
     <v-text-field
       v-model="priceProduct"
     ></v-text-field>
+    <h3>Categoría:</h3>
+    <v-select
+          v-model="category"
+          :items="items"
+          label="Categoria"
+          persistent-hint
+          single-line
+        ></v-select>
     <h3>Cantidad:</h3>
     <v-text-field
       v-model="quantityProduct"
@@ -60,16 +68,18 @@ export default {
       descriptionProduct: '',
       priceProduct: '',
       quantityProduct: '',
+      category: '',
       uploading: false,
       uploadSuccessfull: false,
       uploadFail: false,
+      items: ['Ropa', 'Accesorios', 'Transporte', 'Tecnologia', 'Otros']
     }
   },
   methods: {
     uploadProduct() {
       this.uploading = true;
       var ref = firebase.database().ref('/products')
-      ref.push({
+      var key = ref.push({
         nameProduct: this.nameProduct,
         descriptionProduct: this.descriptionProduct,
         priceProduct: this.priceProduct,
@@ -78,7 +88,13 @@ export default {
         image1: this.image1,
         image2: this.image2,
         image3: this.image3,
-      }).then(() => {
+        category: this.category,
+      }).key;
+      var newRef = firebase.database().ref('/products/'+key)
+      newRef.update({
+        id: key,
+      })
+      .then(() => {
         this.uploadSuccessfull = true;
         this.uploading = false;
       }).catch(() => {
