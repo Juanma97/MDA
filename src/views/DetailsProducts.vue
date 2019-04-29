@@ -43,6 +43,7 @@
         </div>
         <div v-if="showFormMsg" class="msg-form">
             <h3>Enviar mensaje</h3>
+            <v-text-field v-model="subject" placeholder="asunto"></v-text-field>
             <v-textarea v-if="showFormMsg" v-model="message"></v-textarea>
             <v-btn @click="sendMsg" v-if="showFormMsg" color="white">Enviar mensaje</v-btn>
             <v-btn outline @click="hideFormMsg()" v-if="showFormMsg" color="white">Cancelar mensaje</v-btn>
@@ -90,6 +91,7 @@ export default ({
        direction: '',
        email: '',
        message: '',
+       subject: '',
     }
   },
   methods: {
@@ -119,6 +121,7 @@ export default ({
             from: firebase.auth().currentUser.uid,
             to: this.item.uid,
             message: this.message,
+            subject: this.subject,
         })
         .then(() => {
             this.msgSendSuccessfull = true;

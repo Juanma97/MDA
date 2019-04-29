@@ -8,6 +8,7 @@
         <v-btn flat dark @click="show(1)">My products</v-btn>
         <v-btn flat dark @click="show(2)" >My sells</v-btn>
         <v-btn flat dark @click="show(3)">History</v-btn>
+        <v-btn flat dark @click="show(4)">Messages</v-btn>
         
       </v-toolbar-items>
 
@@ -39,6 +40,17 @@
       </div>  
     </div>
 
+    <div v-if="this.showMsgs" class="container">
+      <div class="product" v-for="(item,index) in msgs" :key="index">
+        <div class="proc">
+          <div>Asunto: {{item.subject}}</div>
+          <div>Mensaje: {{item.message}}</div>
+        </div>
+        <div class="buttons">
+          <v-btn flat @click="deleteMsg(item)">Delete message</v-btn>
+        </div>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -57,7 +69,9 @@ import * as firebase from 'firebase'
         showProducts: true,
         showSellProducts: false,
         showHistory: false,
+        showMsgs: false,
         history: [],
+        msgs: [],
         
       }
     },
@@ -87,8 +101,7 @@ import * as firebase from 'firebase'
               var index = this.products.indexOf(item);
               this.products.splice(index, 1);
             })
-         }
-          
+         } 
         },
         goToModify(item) {
           this.$router.push({name: 'ModifyProduct', params: {item: item}})
@@ -99,39 +112,66 @@ import * as firebase from 'firebase'
         goToDetailsProducts(item){
             this.$router.push({name: 'DetailsProducts', params: {item: item}})
         },
-        show(navNumber) {
+      show(navNumber) {
           
           this.showProducts = false
           this.showSellProducts = false
           this.showHistory = false
+          this.showMsgs = false
 
           if(navNumber == 1) {
             this.showProducts = true
+            this.showSellProducts = false
+            this.showHistory = false
+            this.showMsgs = false
           } else if(navNumber == 2) {
             this.showSellProducts = true
+            this.showProducts = false
+            this.showHistory = false
+            this.showMsgs = false
           } else if(navNumber == 3) {
             this.showHistory = true
+            this.showSellProducts = false
+            this.showMsgs = false
+            this.showProducts = false
+          } else if (navNumber == 4){
+            this.showMsgs = true
+            this.showProducts = false
+            this.showSellProducts = false
+            this.showHistory = false
           }
         },
+        getMsgs() {
+          var ref = firebase.database().ref('/messages')
+          ref.once('value', (snapshot) => {
+            snapshot.forEach((child) => {
+              if(child.val().to == firebase.auth().currentUser.uid){
+                this.msgs.push(child.val())
+                console.log("MSGS", this.msgs)
+              }
+            })
+          })
+        }
     },
     created() {
-        var ref = firebase.database().ref('/products')
-        this.user=firebase.auth().currentUser.uid
-        ref.once('value',(snapshot) => {
-            snapshot.forEach((child)=>{
-              if (child.val().uid == this.user) {
-                this.products.push(child.val())
-              }
-                
-            })
-        })
-        var refHistory = firebase.database().ref('/historial_compras/'+firebase.auth().currentUser.uid)
-        refHistory.once('value',(snapshot) => {
-            snapshot.forEach((child)=>{
-              this.history.push(child.val())
-            })
-        })
-
+      this.getMsgs();
+      var ref = firebase.database().ref('/products')
+      this.user=firebase.auth().currentUser.uid
+      ref.once('value',(snapshot) => {
+          snapshot.forEach((child)=>{
+            if (child.val().uid == this.user) {
+              this.products.push(child.val())
+              console.log("PRD: ", this.products)
+            }
+              
+          })
+      })
+      var refHistory = firebase.database().ref('/historial_compras/'+firebase.auth().currentUser.uid)
+      refHistory.once('value',(snapshot) => {
+          snapshot.forEach((child)=>{
+            this.history.push(child.val())
+          })
+      })
     }
   }
 </script>
