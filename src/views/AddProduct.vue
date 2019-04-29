@@ -25,6 +25,11 @@
     <v-text-field
       v-model="quantityProduct"
     ></v-text-field>
+    <h3>¿Trueque?</h3>
+    <v-checkbox
+    v-model="trueque"
+    >Trueque
+    </v-checkbox>
     <div class="images">
       <UploadImages number="First" @downloadURL="saveFirstImage"/>
       <UploadImages number="Second" @downloadURL="saveSecondImage"/>
@@ -72,6 +77,7 @@ export default {
       uploading: false,
       uploadSuccessfull: false,
       uploadFail: false,
+      trueque: false,
       items: ['Ropa', 'Accesorios', 'Transporte', 'Tecnologia', 'Otros']
     }
   },
@@ -89,6 +95,7 @@ export default {
         image2: this.image2,
         image3: this.image3,
         category: this.category,
+        trueque: this.trueque,
       }).key;
       var newRef = firebase.database().ref('/products/'+key)
       newRef.update({
