@@ -2,15 +2,21 @@
   <div>
     <v-toolbar fixed color="#3498db">
       <v-btn @click="goHome" fab flat >
+        
         <v-icon medium dark>menu</v-icon>
       </v-btn>
       <v-toolbar-items v-if="isRegister">
         <v-btn flat dark @click="goToAddProductPage">Add product</v-btn>  
           
       </v-toolbar-items>
+       <v-toolbar-items v-if="isAdmin">
+         <v-btn flat dark @click="goToUserList">Users</v-btn>  
+         <v-btn flat dark @click="goToAllProducts">ProductsList</v-btn>  
+       </v-toolbar-items>  
+
       <v-spacer></v-spacer>
     
-      <v-toolbar-items>
+      <v-toolbar-items>  
         <v-btn flat dark @click="goToViewProductPage">View Products</v-btn>
         <v-btn v-if="!isRegister" flat dark @click="goToLogin">Access</v-btn>
         <v-btn v-if="isRegister" flat dark @click="goToProfile">Perfil</v-btn>
@@ -27,11 +33,15 @@ export default {
   data() {
     return{
       isRegister: false,
+      isAdmin: false,
     }
   },
   created() {
     if (firebase.auth().currentUser != null){
       this.isRegister = true;
+      if(firebase.auth().currentUser.uid =='8Y7mmBwwPpgxsV4CpaKhp26dhz32'){
+        this.isAdmin= true;
+      }
     }else{
       this.isRegister = false;
     }
@@ -53,6 +63,12 @@ export default {
     },
      goToModify() {
       this.$router.replace('ModifyProduct')
+    },
+    goToUserList(){
+      this.$router.replace('usersview')
+    },
+    goToAllProducts(){
+      this.$router.replace('allproducts')
     },
     logout() {
       firebase.auth().signOut()
