@@ -1,10 +1,11 @@
 !<template>
     <div class="main">
        <ToolbarComponent />
-      
+        <div id="backicon"> <v-icon @click="gotoprofile" color="blue">arrow_back</v-icon> </div>
+        <div><h1>Modificar Producto</h1></div>
+       
        <div id="marco">
-                  
-            <div class="grid-container">
+                <div class="grid-container">
                 <div class="grid-item">
                   <img :src="this.imagen1" alt="imagen1">
                 </div>
@@ -20,36 +21,50 @@
             
           <div id="inputform">
             <form >               
-                <div>   
-                  <label for="Nombre"> <b>Nombre:   </b></label>  
-                  <input  type="text" name="Nombre" v-model="nombre" required>  <br>
-                </div>
-                
-                <div >        
-                  <label for="id"> <b>Descripcion:   </b></label>   
-                  <textarea     v-model="descripcion" rows="5" cols="25" required></textarea> <br>
-                </div>
-                
-                <div >   
-                  <label for="Precio"> <b>Precio:</b></label> 
-                  <input  type="number" v-model="precio"  step="0.01" required> <br>
-                </div>
-                 
-                <div >         
-                  <label for="Stock"> <b>Stock:</b></label> 
-                  <input type="number" v-model="stock" step="0.01" required> <br>
-                </div>
-
-                <div>   
-                  <v-btn  flat @click="getkey()">Modificar</v-btn>   
-                </div>
-                  
-            </form>  
-          </div>   
-                           
-        </div>    
+                <div> <label for="Nombre"> <b>Nombre:   </b></label></div>                
+                <div> <input id="formname" type="text" name="Nombre" v-model="nombre" required>  <br> </div>                   
+                       
+                <div><label for="id"> <b>Descripcion:   </b></label> </div>  
+                <div> <textarea  id="formdescrip"   v-model="descripcion" rows="5" cols="25" required></textarea> <br></div>
+              
+                <div> <label for="Precio"> <b>Precio:</b></label> </div>                             
+                <div> <input id="formprice" type="number" v-model="precio"  step="0.01" required> <br></div>
                    
+                <div><label for="Stock"> <b>Stock:</b></label>   </div>       
+                <div><input id="formStock" type="number" v-model="stock" step="0.01" required> <br></div>
+                  
+                <div> <v-btn  flat @click="getkey()">Modificar</v-btn>   </div>
+                
+            </form>  
+            
+          </div> 
+          <div id="alerta"> 
+                <v-alert
+                  :value="SuccessModify"
+                  type="success"
+                  dismissible
+                  transition="scale-transition"
+                 
+
+                > 
+                    Producto Modificado!
+                </v-alert>
+
+                    <v-alert
+                  :value="FailModify"
+                  type="error"
+                  dismissible
+                  transition="scale-transition"
+                 
+
+                > 
+                    Producto No Modificado!
+                </v-alert>
+          </div>       
+        </div>    
+               
     </div>
+     
 </template>
 
 
@@ -74,6 +89,7 @@ export default {
         this.imagen1=this.item.image1
         this.imagen2=this.item.image2
         this.imagen3=this.item.image3
+        this.SuccessModify=false
         
     },
     data () {
@@ -87,15 +103,18 @@ export default {
           imagen1: '',
           imagen3: '',
           imagen2: '',
-           
-           
-
+          SuccessModify: false,
+          FailModify: false,
         }
     },
   methods: {
 
     getkey(){
-     
+      this.SuccessModify=false;
+      this.FailModify=false;
+      if(!this.validateModify()){
+      this.FailModify=true;
+      }else{
       var ref = firebase.database().ref("/products")
       ref.once('value',(snapshot)=>{
         snapshot.forEach((child)=>{
@@ -104,23 +123,24 @@ export default {
           }
         })
       })
-
+      } 
     },
-  /*  ValidarImagen(){     
-     var img1= new Image();     
-     var inputFile = document.querySelector("img1");
-      img1.src = inputFile.value;
+    validateModify(){
+      var valname=document.getElementById("formname").value;
+      var valdes=document.getElementById("formdescrip").value;
+      var valprice=document.getElementById("formprice").value;
+      var valstock=document.getElementById("formStock").value;
       
-      imagen1=this.img1;
-      document.getElementById("prueba1").innerHTML="lo";
-      document.getElementById("prueba2").innerHTML="loco";
-      document.getElementById("prueba3").innerHTML="loco";
-     
-      
-      
-      
-    },*/
-
+      if(valname==="" || valdes==="" | valprice===""|valstock===""){
+        return false;
+      }else{
+        if(valprice==="0"||valstock==="0"){
+          return false;
+        }else{
+          return true;
+        }
+      }
+    },
     actualizar(key){
         
          var ref = firebase.database().ref("/products/"+key)
@@ -129,10 +149,18 @@ export default {
            descriptionProduct:this.descripcion,
            priceProduct:this.precio,
            quantityProduct:this.stock,
-
+           
          }).then(()=>{
+           this.SuccessModify=true  
+          
 
+         }).catch(()=>{
+           this.FailModify=true
          })
+    },
+    gotoprofile(){
+     
+      this.$router.replace('/profile');
     }
   }
 }
@@ -154,18 +182,19 @@ div{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #3498db;
+  background: white;
   position: relative;
 }
 #marco{
     
   width: 100%;
   height: 100%;
-  padding: 10%;
-  margin: 20px;
+
+  margin: 0px;
   
   background: white;
 }
+
  .grid-container{
    display: flex;
     justify-content: center;
@@ -183,23 +212,36 @@ div{
  }
 
  #inputform{
-    display: flex;
-     flex-direction: column;
+    display:flex;
     justify-content: center;
-    align-items: center;
+     align-items: center;
  }
 input,textarea{
    border-bottom:   1px solid black;   
   
  }
-label{
-  margin-right: 50px;
-} 
-
+#alerta{
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+v-icon {
+  margin-left: 10%;
+}
 .images{
   display: grid;
   grid-template-columns: 33% 33% 33%;
   width: 100%;
   border: 1px solid black;
+}
+.v-icon{
+ position: absolute;
+ left: 10%;
+ top: 7%;
+ font-size: 48px;
+}
+h1{
+  color: #3498db; 
 }
 </style>
