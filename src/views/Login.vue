@@ -73,13 +73,13 @@
       >
         User not created!
       </v-alert>
-      <v-alert
-        :value="errorLogin"
-        type="error"
-        dismissible
-      >
-        Login error!
-      </v-alert>
+        <v-alert
+          :value="errorLogin"
+          type="error"
+          dismissible
+        >
+          Login error!
+        </v-alert>
       <v-alert
         :value="errorPasswords"
         type="error"
