@@ -6,7 +6,9 @@ import AddProduct from './views/AddProduct.vue';
 import ProductsView from './views/ProductsView.vue';
 import DetailsProducts from './views/DetailsProducts.vue';
 import Profile from './views/Profile.vue';
-import ModifyProduct from './views/ModifyProduct.vue'
+import ModifyProduct from './views/ModifyProduct.vue';
+import Usersview from './views/Usersview.vue';
+import Allproducts from './views/Allproducts.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -41,6 +43,16 @@ export default new Router({
       name: 'Profile',
       path: '/profile',
       component: Profile,
+    },
+    {
+      name: 'Usersview',
+      path: '/usersview',
+      component: Usersview,
+    },
+    {
+      name:'Allproducts',
+      path: '/allproducts',
+      component: Allproducts,
     },
     {
       name: 'ModifyProduct',
