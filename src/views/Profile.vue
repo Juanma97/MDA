@@ -9,7 +9,7 @@
         <v-btn flat dark @click="show(2)" >My sells</v-btn>
         <v-btn flat dark @click="show(3)">History</v-btn>
         <v-btn flat dark @click="show(4)">Messages</v-btn>
-        
+        <v-btn flat dark @click="show(5)">Edit User</v-btn> 
       </v-toolbar-items>
 
     </v-toolbar>
@@ -25,6 +25,9 @@
           <v-btn flat @click="eliminate(item)">Delete</v-btn>
         </div>
       </div>
+      <div v-if="products.length<=0"> 
+      <p id="Empty">You don´t have products yet</p>
+      </div>
     </div>
 
 
@@ -37,7 +40,10 @@
           <div>Send to: {{item.direction}}</div>
           <div>Delivered to: {{item.name}}</div>
         </div>
-      </div>  
+      </div> 
+      <div v-if="history.length<=0"> 
+      <p id="Empty">You don´t have a history yet</p>
+      </div>
     </div>
 
     <div v-if="this.showMsgs" class="container">
@@ -50,7 +56,57 @@
           <v-btn flat @click="deleteMsg(item)">Delete message</v-btn>
         </div>
       </div>
+      <div v-if="msgs.length<=0"> 
+      <p id="Empty">You don´t have messages yet</p>
+      </div>
     </div>
+    
+    <div v-if="this.showEdit" class="container">
+      <div id="EditUser">
+        <form>
+           <p id="ErrorForm"></p>
+          <div><label for="Email"> <b>Email:</b></label></div>                
+          <div><input  id="editEmail" type="email" name="Email" v-model="email" required><br></div>                   
+                       
+          <div><label for="name"> <b>User name:   </b></label> </div>  
+          <div><input id="editName" type="text" name="name" v-model="name" required><br></div> 
+              
+          <div><label for="lastname"> <b>User Lastname:</b></label> </div>                            
+          <div><input id="editLastname" type="text" name="lastname" v-model="lastname" required><br></div>
+                   
+          <div><v-checkbox v-model="ChangePassw" :label="`Change password:`"></v-checkbox></div>
+           <p id="ErrorPasswd"></p>
+          <div v-if="this.ChangePassw"><label for="password"> <b> New password:</b></label>   </div>       
+          <div v-if="this.ChangePassw"><input id="passwd1"  type="password" name="password" required> <br></div>
+          
+          <div v-if="this.ChangePassw"><label for="repeatPassword"> <b>Repeat new password:</b></label>   </div>       
+          <div v-if="this.ChangePassw"><input id="passwd2" type="password" name="password" required> <br></div>
+
+          <div> <v-btn  flat @click="ValidateEdit()">Modificar</v-btn>   </div>
+        </form>          
+
+      </div> 
+        
+      <div id="alerta"> 
+                <v-alert
+                  :value="SuccessModify"
+                  type="success"
+                  dismissible
+                  transition="scale-transition"> 
+                    User Edited!
+                </v-alert>
+
+                <v-alert
+                  :value="FailModify"
+                  type="error"
+                  dismissible
+                  transition="scale-transition"> 
+                    User No Edited!
+                </v-alert>
+      </div>       
+      
+    </div>
+
   </div>
 
 </template>
@@ -58,6 +114,7 @@
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import * as firebase from 'firebase'
+import { isFulfilled } from 'q';
   
   export default {
     name: 'Profile',
@@ -70,9 +127,15 @@ import * as firebase from 'firebase'
         showSellProducts: false,
         showHistory: false,
         showMsgs: false,
+        showEdit: false,
         history: [],
         msgs: [],
-        
+        email:"",
+        name:"",
+        lastname:"",  
+        SuccessModify: false,
+        FailModify: false,            
+        ChangePassw: false, 
       }
     },
     components: {
@@ -92,7 +155,65 @@ import * as firebase from 'firebase'
               })
             })
           },
-        
+          ValidateEdit(){
+            this.FailModify=false;
+            this.SuccessModify=false;
+             var valemail=document.getElementById("editEmail").value;
+             var valname=document.getElementById("editName").value;
+             var vallastname=document.getElementById("editLastname").value;
+            
+            if(valname==="" || valemail==="" | vallastname===""){
+              this.FailModify=true;
+              document.getElementById("ErrorForm").innerHTML="Los campos no pueden estar vacios";
+            }else if(this.ChangePassw){     
+                var newpass= document.getElementById("passwd1").value;
+                var repeatpass= document.getElementById("passwd2").value;
+                if(newpass.length < 6){
+                  document.getElementById("ErrorPasswd").innerHTML="Las contraseñas debe tener 6 caracteres";
+                }
+               
+                if(newpass !==repeatpass){
+                  document.getElementById("ErrorPasswd").innerHTML="Las contraseñas no coinciden";
+                  this.FailModify=true;
+                }
+                this.updateProfile()
+            }else{
+              this.updateProfile()
+
+                            
+            }
+          },
+        updateProfile(){
+          var ref = firebase.database().ref("/users/"+this.user)
+          ref.update({
+           name:this.name,
+           email:this.email,
+           lastname:this.lastname,         
+           
+           
+          }).then(()=>{
+              firebase.auth().currentUser.updateEmail(this.email).then(()=>{
+                  this.SuccessModify=true  
+                }).catch((err)=>{              
+                  this.FailModify=true
+                });  
+                if(this.ChangePassw){                
+                var newpass= document.getElementById("passwd1").value;
+               
+                firebase.auth().currentUser.updatePassword(newpass).then(()=>{
+                  this.SuccessModify=true  
+                }).catch((err)=>{              
+                  this.FailModify=true
+                });  
+              }else{
+                this.SuccessModify=true
+              }       
+        }).catch(()=>{
+           console.log("falla este otro ")
+           this.FailModify=true
+         })
+
+        },
         deleteItem (key, item) {
          if(confirm("Are you sure you want to remove this product?")){
            firebase.database().ref('/products/'+ key).remove()
@@ -118,28 +239,21 @@ import * as firebase from 'firebase'
           this.showSellProducts = false
           this.showHistory = false
           this.showMsgs = false
-
+          this.showEdit = false
           if(navNumber == 1) {
             this.showProducts = true
-            this.showSellProducts = false
-            this.showHistory = false
-            this.showMsgs = false
+            
           } else if(navNumber == 2) {
             this.showSellProducts = true
-            this.showProducts = false
-            this.showHistory = false
-            this.showMsgs = false
+            
           } else if(navNumber == 3) {
             this.showHistory = true
-            this.showSellProducts = false
-            this.showMsgs = false
-            this.showProducts = false
+           
           } else if (navNumber == 4){
             this.showMsgs = true
-            this.showProducts = false
-            this.showSellProducts = false
-            this.showHistory = false
-          }
+          }else if (navNumber ==5){
+            this.showEdit = true
+          } 
         },
         getMsgs() {
           var ref = firebase.database().ref('/messages')
@@ -166,12 +280,22 @@ import * as firebase from 'firebase'
               
           })
       })
+      var refUser=firebase.database().ref('/users/'+this.user)
+    
+      refUser.once('value',(snapshot) => {
+          
+          this.lastname=snapshot.val().lastname
+          this.name=snapshot.val().name
+          this.email=snapshot.val().email
+      
+      })   
       var refHistory = firebase.database().ref('/historial_compras/'+firebase.auth().currentUser.uid)
       refHistory.once('value',(snapshot) => {
           snapshot.forEach((child)=>{
             this.history.push(child.val())
           })
       })
+     
     }
   }
 </script>
@@ -206,6 +330,16 @@ import * as firebase from 'firebase'
   display: flex;
   flex-direction: column;
 
+}
+input{
+  border-bottom:   1px solid black; 
+  margin-bottom: 20px;
+}
+#EditUser{
+   
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
 }
 
 .proc {
@@ -351,6 +485,14 @@ import * as firebase from 'firebase'
 }
 p{
   margin: 0;
+}
+#Empty{
+ font-size: 1cm;
+ text-align:center;
+}
+
+#ErrorForm, #ErrorPasswd{
+ color: red;
 }
 
 </style>
