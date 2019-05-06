@@ -2,8 +2,13 @@
 <div class = "main">
 <ToolbarComponent />
 <div  class="container">
-      <div class="product" v-for="(item,index) in users" :key="index">
-        <div class="proc">  
+      <div class="container2">
+        <div>Name</div>
+        <div>LastName</div>
+        <div>Email</div>
+      </div>
+      <div class="us" v-for="(item,index) in users" :key="index">
+        <div class="dat">  
           <div>{{item.name}}</div>
           <div>{{item.lastname}}</div>
           <div>{{item.email}}</div>
@@ -107,20 +112,53 @@ import * as firebase from 'firebase'
 </script>
 <style scoped>
 
-
-.product {
+.buttons{
+  display: flex;
+  height:100%;
+  align-items: center;
+  
+}
+.container2{
+  display:flex;
+  border-bottom: 2px solid black;
+  margin-top:10%;
+  
+}
+.container2 div{
+  margin-right:10%;
+  margin-left:10%;
+  font-size:25px;
+  text-align: center;
+margin-bottom: 10px;
+}
+.dat div{
+  padding:100px;
+  
+}
+.dat{
+  display:flex;
+  width:100%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+   
+}
+.us {
   border-bottom: 1px solid black;
   width: 100%;
   height: 150px;
-  margin-top: 10px;
+  
   display: flex;
+  
+  
 }
 .container {
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top:6%;
+  font-size: 20px;
+
 
 }
 
