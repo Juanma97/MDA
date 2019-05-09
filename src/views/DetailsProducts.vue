@@ -54,17 +54,20 @@
             <v-alert type="success" dismissible :value="msgSendSuccessfull">Mensaje enviado</v-alert>
             <v-alert type="error" dismissible :value="errorLogin">Tiene que registrarse para comprar</v-alert>
         </div>
+         <div><FooterComponent /></div>
     </div>
 </template>
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 import * as firebase from 'firebase';
  
 export default ({
     name: 'DetailsProducts',
      components: {
       ToolbarComponent,
+      FooterComponent,
 
     },
     created() {
@@ -193,6 +196,7 @@ export default ({
     height: 40%;
     width: 30%;
     margin-left: 45px;
+    
 }
 table#mitabla {
 margin-top:20px;

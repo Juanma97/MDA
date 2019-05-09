@@ -1,12 +1,11 @@
 <template>
   <div class="main">
     <ToolbarComponent />
-     
+
     <v-toolbar class="toolbar2" color="#3498db">
 
       <v-toolbar-items >
         <v-btn flat dark @click="show(1)">My products</v-btn>
-        <v-btn flat dark @click="show(2)" >My sells</v-btn>
         <v-btn flat dark @click="show(3)">History</v-btn>
         <v-btn flat dark @click="show(4)">Messages</v-btn>
         <v-btn flat dark @click="show(5)">Edit User</v-btn> 
@@ -106,18 +105,16 @@
       </div>       
       
     </div>
-
-    <FooterComponent />  
+   <div><FooterComponent /></div>
   </div>
 
 </template>
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
-import FooterComponent from '@/components/FooterComponent.vue';
 import * as firebase from 'firebase'
 import { isFulfilled } from 'q';
-  
+import FooterComponent from '@/components/FooterComponent.vue';  
   export default {
     name: 'Profile',
     data() {
@@ -268,11 +265,14 @@ import { isFulfilled } from 'q';
           this.showMsgs = false
           this.showEdit = false
           if(navNumber == 1) {
-            this.showProducts = true            
+            this.showProducts = true
+            
           } else if(navNumber == 2) {
-            this.showSellProducts = true            
+            this.showSellProducts = true
+            
           } else if(navNumber == 3) {
-            this.showHistory = true           
+            this.showHistory = true
+           
           } else if (navNumber == 4){
             this.showMsgs = true
           }else if (navNumber ==5){

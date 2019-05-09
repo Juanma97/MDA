@@ -1,11 +1,10 @@
 !<template>
     <div class="main">
        <ToolbarComponent />
-        
         <div id="backicon"> <v-icon @click="gotoprofile" color="blue">arrow_back</v-icon> </div>
         <div><h1>Modificar Producto</h1></div>
        
-       <div id="marco">
+        <div id="marco">
                 <div class="grid-container">
                 <div class="grid-item">
                   <img :src="this.imagen1" alt="imagen1">
@@ -64,7 +63,7 @@
                 </v-alert>
           </div>       
         </div>    
-        <FooterComponent />
+        <div><FooterComponent /></div>       
     </div>
      
 </template>
@@ -72,11 +71,10 @@
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
-import FooterComponent from '@/components/FooterComponent.vue';
 import * as firebase from 'firebase';
 import UploadImages from '@/components/UploadImages.vue';
 import { setTimeout } from 'timers';
-
+import FooterComponent from '@/components/FooterComponent.vue';
 export default {
     name: 'ModifyProduct',
      components: {
@@ -181,7 +179,7 @@ div{
   width: 100%;
   height: 100%;
   display: flex;
- 
+  padding:100px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -192,7 +190,9 @@ div{
     
   width: 100%;
   height: 100%;
-  margin: 0px;  
+
+  margin: 0px;
+  
   background: white;
 }
 

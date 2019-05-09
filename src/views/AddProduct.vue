@@ -51,12 +51,14 @@
     >
       Error!
     </v-alert>
+    <div><FooterComponent /></div>
   </div>
 </template>
 
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 import UploadImages from '@/components/UploadImages.vue';
 import firebase from 'firebase';
 import { setTimeout } from 'timers';
@@ -66,6 +68,7 @@ export default {
   components: {
     ToolbarComponent,
     UploadImages,
+    FooterComponent,
   },
   data() {
     return {

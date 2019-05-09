@@ -47,7 +47,7 @@ export default {
 <style scoped>
 #main{
   width: 100%;
-  padding-top: 50px;
+  padding-top: 150px;
 }
 .footer{
   border-top: 1px solid white;

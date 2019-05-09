@@ -2,8 +2,12 @@
   <div>
     <v-toolbar fixed color="#3498db">
       <v-btn @click="goHome" fab flat >
+<<<<<<< HEAD
         
         <v-icon medium dark>menu</v-icon>
+=======
+        <v-icon medium dark>home</v-icon>
+>>>>>>> c22befcde34586686012779520297757dcaf9cf9
       </v-btn>
       <v-toolbar-items v-if="isRegister">
         <v-btn flat dark @click="goToAddProductPage">Add product</v-btn>  
@@ -18,6 +22,7 @@
     
       <v-toolbar-items>  
         <v-btn flat dark @click="goToViewProductPage">View Products</v-btn>
+        <v-btn flat dark @click="goToViewCategoryPage">Categories</v-btn>
         <v-btn v-if="!isRegister" flat dark @click="goToLogin">Access</v-btn>
         <v-btn v-if="isRegister" flat dark @click="goToProfile">Perfil</v-btn>
         <v-btn v-if="isRegister" flat dark @click="logout">Logout</v-btn>
@@ -57,6 +62,9 @@ export default {
     },
     goToViewProductPage() {
       this.$router.replace('productsview')
+    },
+    goToViewCategoryPage() {
+      this.$router.replace('categoryview')
     },
     goToProfile() {
       this.$router.replace('profile')
