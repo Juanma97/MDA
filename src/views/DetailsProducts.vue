@@ -43,14 +43,16 @@
             <v-list-tile
               v-for="(item, index) in this.ownProducts"
               :key="index"
-              @click="no()"
+              @click="selectOwnProduct(item)"
             >
               <v-list-tile-title>{{ item.nameProduct }}</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
       </div>
-      <v-btn outline @click="hideForm()" v-if="showFormForBarter">Cancelar trueque</v-btn>
+      <div v-if="productOferted!=null" ><p outline>Producto seleccionado: {{productOferted.nameProduct}}</p></div>
+      <v-btn outline @click="barterProduct(item, productOferted)" >Realizar trueque</v-btn>
+      <v-btn outline @click="hideForm()" >Cancelar trueque</v-btn>
     </div>
 
     <div v-if="showFormMsg" class="msg-form">
@@ -69,8 +71,8 @@
       >Comprar producto</v-btn>
       <v-btn
         outline
+        @click="showBarter()"
         v-if="item.trueque && !showBarterForm && !showFormMsg"
-        @click="showFormForBarter()"
         color="#3498db"
       >Ofrecer Trueque</v-btn>
       <v-alert type="success" dismissible :value="buySuccessful">Producto comprado</v-alert>
@@ -119,6 +121,9 @@ export default {
       subject: "",
       showBarterForm: false,
       ownProducts: [],
+      productOferted: null,
+      barterSuccessful: false,
+      currentUserName: "",
     };
   },
   methods: {
@@ -134,9 +139,11 @@ export default {
     },
     showFormBuy() {
       firebase.auth().currentUser != null ? (this.showForm = true) : (this.errorLogin = true);
+      this.showBarterForm = false;
     },
-    showFormForBarter() {
+    showBarter() {
       firebase.auth().currentUser != null ? (this.showBarterForm = true) : (this.errorLogin = true);
+      this.showForm = false;
 
       var ref = firebase.database().ref("/products");
       ref.once("value", snapshot => {
@@ -156,6 +163,7 @@ export default {
       this.showForm = false;
       this.showBarterForm = false;
       this.ownProducts = []
+      this.productOferted = null;
     },
     hideFormMsg() {
       this.showFormMsg = false;
@@ -194,6 +202,35 @@ export default {
       } else {
         this.errorLogin = true;
       }
+    },
+    barterProduct(item, productOferted) {
+
+      var ref = firebase.database().ref('/users/'+firebase.auth().currentUser.uid);
+      ref.once('value', (snapshot) => {
+      this.currentUserName = snapshot.val().name;
+      console.log(snapshot.val());
+      }).then(()=> {
+
+      var ref = firebase.database().ref("messages/");
+      ref.push({
+          from: firebase.auth().currentUser.uid,
+          to: this.item.uid,
+          message: "El usuario " + this.currentUserName + " ha hecho una oferta de trueque a su producto " 
+          + item.nameProduct + " ofreciendo el siguiente producto " + productOferted.nameProduct + ".",
+          subject: "Oferta de trueque"
+        })
+        .then(() => {
+          this.barterSuccessful = true;
+          this.showBarterForm = false;
+          
+        });
+      });
+      
+      
+        
+    },
+    selectOwnProduct(item){
+      this.productOferted = item;
     }
   }
 };
