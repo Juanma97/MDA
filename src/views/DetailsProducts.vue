@@ -208,7 +208,6 @@ export default {
       var ref = firebase.database().ref('/users/'+firebase.auth().currentUser.uid);
       ref.once('value', (snapshot) => {
       this.currentUserName = snapshot.val().name;
-      console.log(snapshot.val());
       }).then(()=> {
 
       var ref = firebase.database().ref("messages/");
