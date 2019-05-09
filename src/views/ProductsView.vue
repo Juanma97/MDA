@@ -1,7 +1,6 @@
 <template>
   <div class="main">
     <ToolbarComponent/>
-
     <div class="flex-container">
       <div class="item">
         <div class="img">
