@@ -4,7 +4,7 @@
         <div id="backicon"> <v-icon @click="gotoprofile" color="blue">arrow_back</v-icon> </div>
         <div><h1>Modificar Producto</h1></div>
        
-       <div id="marco">
+        <div id="marco">
                 <div class="grid-container">
                 <div class="grid-item">
                   <img :src="this.imagen1" alt="imagen1">
@@ -63,7 +63,7 @@
                 </v-alert>
           </div>       
         </div>    
-               
+        <div><FooterComponent /></div>       
     </div>
      
 </template>
@@ -74,12 +74,12 @@ import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import * as firebase from 'firebase';
 import UploadImages from '@/components/UploadImages.vue';
 import { setTimeout } from 'timers';
-
+import FooterComponent from '@/components/FooterComponent.vue';
 export default {
     name: 'ModifyProduct',
      components: {
       ToolbarComponent,
-
+      FooterComponent,
     },
     created() {
         this.item =   this.$route.params.item

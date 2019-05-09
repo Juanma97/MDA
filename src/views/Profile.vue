@@ -6,7 +6,6 @@
 
       <v-toolbar-items >
         <v-btn flat dark @click="show(1)">My products</v-btn>
-        <v-btn flat dark @click="show(2)" >My sells</v-btn>
         <v-btn flat dark @click="show(3)">History</v-btn>
         <v-btn flat dark @click="show(4)">Messages</v-btn>
         <v-btn flat dark @click="show(5)">Edit User</v-btn> 
@@ -106,7 +105,7 @@
       </div>       
       
     </div>
-
+   <div><FooterComponent /></div>
   </div>
 
 </template>
@@ -115,7 +114,7 @@
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import * as firebase from 'firebase'
 import { isFulfilled } from 'q';
-  
+import FooterComponent from '@/components/FooterComponent.vue';  
   export default {
     name: 'Profile',
     data() {
@@ -140,6 +139,7 @@ import { isFulfilled } from 'q';
     },
     components: {
       ToolbarComponent,
+      FooterComponent,
     },
     methods: {
       

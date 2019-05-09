@@ -45,18 +45,20 @@ import * as firebase from 'firebase'
           ref.once('value', (snapshot) => {
             snapshot.forEach((child) => {
                 if(child.val().email ==  item.email) {
-                 this.eliminateProduct(child.key);
-                  this.eliminateHistory(child.key);
-                 this.deleteUser(child.key, item); 
+                  if(confirm("Are you sure you want to remove this user and his products?")){
+                    this.eliminateProduct(child.key);
+                    this.eliminateHistory(child.key);
+                    this.deleteUser(child.key, item); 
                   
-                this.$router.replace('Usersview');
+                    this.$router.replace('Usersview');
+                  }
                 }
               })
             })
             
           }, 
         deleteUser (key, item) {
-         if(confirm("Are you sure you want to remove this user and his products?")){
+         
           
           firebase.database().ref('/users/'+ key).remove()
 
@@ -64,7 +66,6 @@ import * as firebase from 'firebase'
               var index = this.users.indexOf(item);
               this.users.splice(index, 1);
             })
-         }
           
         },
         eliminateProduct(key){
