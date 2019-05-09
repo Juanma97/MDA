@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-     <FooterComponent />
     <v-icon @click="goToMainScreen" color="white">arrow_back</v-icon> 
     <div class="container-login">
 
@@ -15,13 +14,11 @@
           append-icon="email"
           type="email"
         ></v-text-field>
-        <v-text-field 
-          v-model="password"  
+        <v-text-field
+          v-model="password"
           placeholder="password"
-          :append-icon="visible ? 'visibility_off' : 'visibility'"
-          @click:append="() => (visible = !visible)"
-          :type="visible ? 'text' : 'password'"
-          counter="6"
+          append-icon="lock"
+          type="password"
         ></v-text-field>
         <v-btn outline color="#3498db" @click="login">
           Login
@@ -98,20 +95,21 @@
         Check fields!
       </v-alert>
     </div>
-   
+    <div class="footer">
+      <p>About us</p>
+      <p>Our clients</p>
+      <p>Why select this enterprise?</p>
+      <p class="copyright">Copyright 2019</p>
+    </div>
   </div>
 </template>
 
 
 <script>
 import * as firebase from 'firebase';
-import FooterComponent from '@/components/FooterComponent.vue';
+
 export default {
   name: 'Login',
-  components: {
-     
-      FooterComponent,
-    },
   data () {
     return {
       email: '',

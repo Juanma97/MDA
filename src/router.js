@@ -4,9 +4,12 @@ import Home from './views/Home.vue';
 import Login from './views/Login.vue';
 import AddProduct from './views/AddProduct.vue';
 import ProductsView from './views/ProductsView.vue';
+import CategoryView from './views/CategoryView.vue';
+import CategoryDetails from './views/CategoryDetails.vue';
 import DetailsProducts from './views/DetailsProducts.vue';
 import Profile from './views/Profile.vue';
-import ModifyProduct from './views/ModifyProduct.vue'
+import ModifyProduct from './views/ModifyProduct.vue';
+
 Vue.use(Router);
 
 export default new Router({
@@ -31,6 +34,16 @@ export default new Router({
       name: 'ProductsView',
       path: '/productsview',
       component: ProductsView,
+    },
+    {
+      name: 'CategoryView',
+      path: '/categoryview',
+      component: CategoryView,
+    },
+    {
+      name: 'CategoryDetails',
+      path: '/categorydetails',
+      component: CategoryDetails,
     },
     {
       name: 'DetailsProducts',
