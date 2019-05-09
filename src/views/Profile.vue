@@ -105,7 +105,7 @@
       </div>       
       
     </div>
-
+   <div><FooterComponent /></div>
   </div>
 
 </template>
@@ -114,7 +114,7 @@
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import * as firebase from 'firebase'
 import { isFulfilled } from 'q';
-  
+import FooterComponent from '@/components/FooterComponent.vue';  
   export default {
     name: 'Profile',
     data() {
@@ -139,6 +139,7 @@ import { isFulfilled } from 'q';
     },
     components: {
       ToolbarComponent,
+      FooterComponent,
     },
     methods: {
       

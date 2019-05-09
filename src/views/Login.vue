@@ -95,21 +95,19 @@
         Check fields!
       </v-alert>
     </div>
-    <div class="footer">
-      <p>About us</p>
-      <p>Our clients</p>
-      <p>Why select this enterprise?</p>
-      <p class="copyright">Copyright 2019</p>
-    </div>
+    <div><FooterComponent /></div>
   </div>
 </template>
 
 
 <script>
 import * as firebase from 'firebase';
-
+import FooterComponent from '@/components/FooterComponent.vue';
 export default {
   name: 'Login',
+  components: {
+    FooterComponent,
+  },
   data () {
     return {
       email: '',
@@ -196,23 +194,7 @@ export default {
   background: #3498db;
   position: relative;
 }
-.footer{
-  border-top: 1px solid white;
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
 
-.footer p{
-  margin: 16px !important;
-  transition: 400ms;
-}
-
-.footer p:hover{
-  font-size: 18px;
-  color: white;
-}
 .v-icon{
  position: absolute;
  left: 16px;

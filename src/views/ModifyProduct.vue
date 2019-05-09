@@ -63,7 +63,7 @@
                 </v-alert>
           </div>       
         </div>    
-               
+        <div><FooterComponent /></div>       
     </div>
      
 </template>
@@ -74,12 +74,12 @@ import ToolbarComponent from '@/components/ToolbarComponent.vue';
 import * as firebase from 'firebase';
 import UploadImages from '@/components/UploadImages.vue';
 import { setTimeout } from 'timers';
-
+import FooterComponent from '@/components/FooterComponent.vue';
 export default {
     name: 'ModifyProduct',
      components: {
       ToolbarComponent,
-
+      FooterComponent,
     },
     created() {
         this.item =   this.$route.params.item

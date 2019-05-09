@@ -12,17 +12,20 @@
         <p v-if="parseInt(product.quantityProduct) == 1">{{product.quantityProduct}} unit</p>
       </div>
     </div>
+    <div><FooterComponent /></div>
   </div>
 </template>
 
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
   name: 'CategoryDetails',
   components: {
     ToolbarComponent,
+    FooterComponent,
   },
   data() {
     return {
@@ -47,7 +50,7 @@ export default {
   grid-template-columns: 25% 25% 25% 25%;
   grid-gap: 16px;
   width: 100%;
-  height: 100%;
+  height: 300px;
   margin-top: 5%;
   padding: 32px;
 }
@@ -55,7 +58,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 300px;
   padding: 4px;
   border: 1px solid black;
   border-radius: 4px;

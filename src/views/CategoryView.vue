@@ -9,18 +9,21 @@
         </div>
       </div>
     </div>
+     <div><FooterComponent /></div>
   </div>
 </template>
 
 
 <script>
 import ToolbarComponent from '@/components/ToolbarComponent.vue';
+import FooterComponent from '@/components/FooterComponent.vue';
 import * as firebase from 'firebase';
 
 export default {
   name: 'CategoryView',
   components: {
     ToolbarComponent,
+    FooterComponent,
   },
   data() {
     return{
