@@ -4,7 +4,7 @@
         <div id="backicon"> <v-icon @click="gotoprofile" color="blue">arrow_back</v-icon> </div>
         <div><h1>Modificar Producto</h1></div>
        
-       <div id="marco">
+        <div id="marco">
                 <div class="grid-container">
                 <div class="grid-item">
                   <img :src="this.imagen1" alt="imagen1">
