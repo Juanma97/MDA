@@ -12,6 +12,7 @@
     
       <v-toolbar-items>
         <v-btn flat dark @click="goToViewProductPage">View Products</v-btn>
+        <v-btn flat dark @click="goToViewCategoryPage">Categories</v-btn>
         <v-btn v-if="!isRegister" flat dark @click="goToLogin">Access</v-btn>
         <v-btn v-if="isRegister" flat dark @click="goToProfile">Perfil</v-btn>
         <v-btn v-if="isRegister" flat dark @click="logout">Logout</v-btn>
@@ -47,6 +48,9 @@ export default {
     },
     goToViewProductPage() {
       this.$router.replace('productsview')
+    },
+    goToViewCategoryPage() {
+      this.$router.replace('categoryview')
     },
     goToProfile() {
       this.$router.replace('profile')
