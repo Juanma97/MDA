@@ -47,7 +47,7 @@
           <div>Mensaje: {{item.message}}</div>
         </div>
         <div class="buttons">
-          <v-btn flat @click="deleteMsg(item)">Delete message</v-btn>
+          <v-btn flat @click="eliminateMsg(item)">Delete message</v-btn>
         </div>
       </div>
     </div>
@@ -97,11 +97,35 @@ import * as firebase from 'firebase'
          if(confirm("Are you sure you want to remove this product?")){
            firebase.database().ref('/products/'+ key).remove()
             .then(() => {
-              alert("Producto eliminado correctamente");
+              alert("Product Deleted");
               var index = this.products.indexOf(item);
               this.products.splice(index, 1);
             })
          } 
+        },
+        eliminateMsg(item){
+          var ref = firebase.database().ref('/messages')
+          ref.once('value', (snapshot) => {
+            snapshot.forEach((child) => {
+              if(child.val().to == firebase.auth().currentUser.uid){
+                
+                this.deleteMsg(child.key, item);
+                this.$router.replace('profile');
+                
+              }
+              })
+            })
+
+        },
+        deleteMsg(key, item){
+          if(confirm("Are you sure you want to remove this message?")){
+           firebase.database().ref('/messages/'+ key).remove()
+            .then(() => {
+              alert("Message Deleted");
+              var index = this.msgs.indexOf(item);
+              this.msgs.splice(index, 1);
+            })
+         }
         },
         goToModify(item) {
           this.$router.push({name: 'ModifyProduct', params: {item: item}})
