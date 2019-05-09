@@ -4,7 +4,7 @@
         <div id="backicon"> <v-icon @click="gotoprofile" color="blue">arrow_back</v-icon> </div>
         <div><h1>Modificar Producto</h1></div>
        
-       <div id="marco">
+        <div id="marco">
                 <div class="grid-container">
                 <div class="grid-item">
                   <img :src="this.imagen1" alt="imagen1">
@@ -36,8 +36,9 @@
                 <div> <v-btn  flat @click="getkey()">Modificar</v-btn>   </div>
                 
             </form>  
-            
+                
           </div> 
+          
           <div id="alerta"> 
                 <v-alert
                   :value="SuccessModify"
@@ -81,7 +82,7 @@ export default {
 
     },
     created() {
-        this.item = this.$route.params.item
+        this.item =   this.$route.params.item
         this.nombre=this.item.nameProduct
         this.descripcion=this.item.descriptionProduct
         this.precio=this.item.priceProduct
@@ -90,7 +91,7 @@ export default {
         this.imagen2=this.item.image2
         this.imagen3=this.item.image3
         this.SuccessModify=false
-        
+        this.changePassw=false
     },
     data () {
         return {
@@ -144,13 +145,13 @@ export default {
     actualizar(key){
         
          var ref = firebase.database().ref("/products/"+key)
-         ref.update({
-           nameProduct:this.nombre,
-           descriptionProduct:this.descripcion,
-           priceProduct:this.precio,
-           quantityProduct:this.stock,
-           
-         }).then(()=>{
+          ref.update({
+            nameProduct:this.nombre,
+            descriptionProduct:this.descripcion,
+            priceProduct:this.precio,
+            quantityProduct:this.stock,
+            
+          }).then(()=>{
            this.SuccessModify=true  
           
 
