@@ -5,8 +5,8 @@
     <div class="flex-container">
       <div class="item">
         <div class="img">
-          <!--<img src="https://d3icht40s6fxmd.cloudfront.net/sites/default/files/test-product-test.png" alt="Test">-->
-          <h3>EASYBUY</h3>
+           <img src="../assets/Easybuy.png" />
+         
         </div>
         <div class="container-seeker">
           <div class="seeker">
@@ -50,7 +50,7 @@
     <div class="flex-container"></div>
     <div class="grid-container">
       <div v-for="(item, index) in searchP" :key="index" class="item-grid">
-        <img :src="item.image1" @click="goToDetailsProducts(item)">
+        <img id="imgproducto"  :src="item.image1" @click="goToDetailsProducts(item)">
         <h3>{{item.nameProduct}}</h3>
         <p>{{item.descriptionProduct}}</p>
         <p>{{item.priceProduct}} €</p>
@@ -58,6 +58,8 @@
         <p v-if="parseInt(item.quantityProduct) == 1">{{item.quantityProduct}} unit</p>
       </div>
     </div>
+    <div><FooterComponent /></div>
+     
   </div>
 </template>
 
@@ -65,6 +67,7 @@
 import ToolbarComponent from "@/components/ToolbarComponent.vue";
 import * as firebase from "firebase";
 import { log } from 'util';
+import FooterComponent from '@/components/FooterComponent.vue';
 
 export default {
   name: "ProductsView",
@@ -82,7 +85,8 @@ export default {
     };
   },
   components: {
-    ToolbarComponent
+    ToolbarComponent,
+    FooterComponent,
   },
   methods: {
     updateProducts() {
@@ -196,6 +200,7 @@ export default {
   display: block;
   height: 60%;
   font-size: 48px;
+  max-height: 150px 150px;
 }
 
 @media only screen and (max-width: 700px) {
@@ -246,5 +251,14 @@ export default {
 }
 p {
   margin: 0;
+}
+#imgproducto{
+  margin-top: 8%;
+  margin-bottom: 4%;
+  align-content: center;
+  display: block;
+  height: 400px;
+  width: 400px;
+  font-size: 48px;
 }
 </style>

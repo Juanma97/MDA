@@ -193,6 +193,7 @@ export default ({
     height: 40%;
     width: 30%;
     margin-left: 45px;
+    
 }
 table#mitabla {
 margin-top:20px;

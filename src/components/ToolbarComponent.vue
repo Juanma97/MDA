@@ -2,7 +2,7 @@
   <div>
     <v-toolbar fixed color="#3498db">
       <v-btn @click="goHome" fab flat >
-        <v-icon medium dark>menu</v-icon>
+        <v-icon medium dark>home</v-icon>
       </v-btn>
       <v-toolbar-items v-if="isRegister">
         <v-btn flat dark @click="goToAddProductPage">Add product</v-btn>  

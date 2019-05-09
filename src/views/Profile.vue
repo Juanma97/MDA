@@ -6,7 +6,6 @@
 
       <v-toolbar-items >
         <v-btn flat dark @click="show(1)">My products</v-btn>
-        <v-btn flat dark @click="show(2)" >My sells</v-btn>
         <v-btn flat dark @click="show(3)">History</v-btn>
         <v-btn flat dark @click="show(4)">Messages</v-btn>
         <v-btn flat dark @click="show(5)">Edit User</v-btn> 
