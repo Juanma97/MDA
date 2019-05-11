@@ -14,11 +14,13 @@
           append-icon="email"
           type="email"
         ></v-text-field>
-        <v-text-field
-          v-model="password"
+        <v-text-field 
+          v-model="password"  
           placeholder="password"
-          append-icon="lock"
-          type="password"
+          :append-icon="visible ? 'visibility_off' : 'visibility'"
+          @click:append="() => (visible = !visible)"
+          :type="visible ? 'text' : 'password'"
+          counter="6"
         ></v-text-field>
         <v-btn outline color="#3498db" @click="login">
           Login
