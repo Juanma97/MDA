@@ -166,6 +166,7 @@ import FooterComponent from '@/components/FooterComponent.vue';
               this.FailModify=true;
               document.getElementById("ErrorForm").innerHTML="Los campos no pueden estar vacios";
             }else if(this.ChangePassw){     
+               document.getElementById("ErrorForm").innerHTML="";
                 var newpass= document.getElementById("passwd1").value;
                 var repeatpass= document.getElementById("passwd2").value;
                 if(newpass.length < 6){
@@ -178,6 +179,8 @@ import FooterComponent from '@/components/FooterComponent.vue';
                 }
                 this.updateProfile()
             }else{
+               document.getElementById("ErrorForm").innerHTML="";
+               document.getElementById("ErrorPasswd").innerHTML="";
               this.updateProfile()
 
                             

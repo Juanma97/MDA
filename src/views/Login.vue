@@ -97,7 +97,7 @@
         Check fields!
       </v-alert>
     </div>
-    <div><FooterComponent /></div>
+    <FooterComponent />
   </div>
 </template>
 

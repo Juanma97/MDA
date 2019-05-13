@@ -10,21 +10,27 @@
     <div class="modal-wrapper" id="popup1">
         <div class="popup-contenedor">   
             <h2>About us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor deleniti...</p>
+            <p>Canary Island</p>
+            <p>Telephone: 928 25 25 25</p>
+            <p>Email: Easybuy@easybuy.com</p>
+            <p>Mail address: C/ Luis Jorge Castaños 23. 4º-2ª Urbanización Las Cascajuelas 28999 Valdecillas de Jarama, Las Palmas </p>
             <a class="popup-cerrar" href="#">X</a>
         </div>
     </div>
     <div class="modal-wrapper" id="popup2">
         <div class="popup-contenedor">   
             <h2>Our clients</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor deleniti...</p>
+            <p>Buyers: They can obtain products in a framework of trust and with the maximum guarantees of the market</p>
+            <p>Shellers: They may obtain benefits from objects that they do not use or offer barter with which to obtain them without paying </p>
+            <p>Professional sheller: They will find another way of income without complications</p>
+            <p>Small businesses: They will find a way to reach a larger number of customers</p>
             <a class="popup-cerrar" href="#">X</a>
         </div>
     </div>
     <div class="modal-wrapper" id="popup3">
         <div class="popup-contenedor">   
             <h2>Why select this enterprise?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor deleniti...</p>
+            <p>Complying with the ethical values ​​that characterize us, we offer a safe service with total guarantee, where you can not only obtain an economic benefit from a product, but you can obtain new ones by exchanging objects that you no longer use</p>
             <a class="popup-cerrar" href="#">X</a>
         </div>
     </div>
@@ -48,6 +54,7 @@ export default {
 #main{
   width: 100%;
   padding-top: 150px;
+  margin-top: 20px;
 }
 .footer{
   border-top: 1px solid white;
