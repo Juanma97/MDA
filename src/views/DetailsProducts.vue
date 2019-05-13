@@ -1,12 +1,10 @@
 <template>
-  <div
-    style="position: relative; height: 100%; display: flex; align-items: center; flex-direction:column;"
-  >
+  <div style="position: relative; height: 100%; display: flex; align-items: center; flex-direction:column;">
     <v-btn color="#3498db" fab class="msg-btn" @click="showFormMessage">
       <v-icon color="white">message</v-icon>
     </v-btn>
     <ToolbarComponent />  
-      <div>
+      <div class="images">
         <v-carousel height="300">
             <v-carousel-item
             :src="this.item.image1"
@@ -57,19 +55,7 @@
             <v-alert type="success" dismissible :value="msgSendSuccessfull">Mensaje enviado</v-alert>
             <v-alert type="error" dismissible :value="errorLogin">Tiene que registrarse para comprar</v-alert>
         </div>
-         <div><FooterComponent /></div>
     </div>
-    <div v-if="showForm" class="buy-form">
-      <h3>Formulario de compra</h3>
-      <v-text-field v-if="showForm" v-model="name" placeholder="name"></v-text-field>
-      <v-text-field v-if="showForm" v-model="lastname" placeholder="lastname"></v-text-field>
-      <v-text-field v-if="showForm" v-model="direction" placeholder="direction"></v-text-field>
-      <v-text-field v-if="showForm" v-model="email" placeholder="email"></v-text-field>
-      <v-text-field v-if="showForm" v-model="card_number" placeholder="card_number"></v-text-field>
-      <v-btn outline @click="buyProduct(item)" v-if="showForm">Finalizar compra</v-btn>
-      <v-btn outline @click="hideForm()" v-if="showForm">Cancelar compra</v-btn>
-    </div>
-
     <div v-if="showBarterForm" class="buy-form">
       <h3>Formulario de trueque</h3>
       <div class="text-xs-center">
@@ -118,6 +104,7 @@
       <v-alert type="success" dismissible :value="msgSendSuccessfull">Mensaje enviado</v-alert>
       <v-alert type="error" dismissible :value="errorLogin">Tiene que registrarse para comprar</v-alert>
     </div>
+    <FooterComponent /> 
   </div>
 </template>
 
@@ -131,8 +118,6 @@ export default ({
      components: {
       ToolbarComponent,
       FooterComponent,
-
-
   },
   created() {
     this.item = this.$route.params.item;
@@ -263,12 +248,8 @@ export default ({
         .then(() => {
           this.barterSuccessful = true;
           this.showBarterForm = false;
-          
         });
       });
-      
-      
-        
     },
     selectOwnProduct(item){
       this.productOferted = item;
@@ -278,6 +259,9 @@ export default ({
 </script>
 
 <style >
+.images{
+  margin-top: 72px;
+}
 .buy-form {
   width: 70%;
 }
@@ -290,7 +274,7 @@ export default ({
 }
 .msg-btn {
   position: absolute !important;
-  bottom: 32px;
+  bottom: 72px;
   right: 32px;
   z-index: 100;
 }
@@ -304,36 +288,15 @@ export default ({
 }
 .buy-btn {
   position: absolute;
-  bottom: 32px;
+  bottom: 72px;
   left: 32px;
   width: 100%;
   z-index: 1;
 }
-
 .img1{
     margin-top:10%;
     height: 40%;
     width: 30%;
-    margin-left: 45px;
-    
-}
-table#mitabla {
-  margin-top: 20px;
-  margin-right: 2px;
-  margin-left: 2px;
-
-  border: 1px solid #ccc;
-  font-size: 50px;
-  width: 100%;
-}
-
-table#mitabla th {
-  font-weight: bold;
-  background-color: #e1e1e1;
-}
-
-table#mitabla td {
-  text-align: center;
-  padding: 5px 10px;
+    margin-left: 45px;   
 }
 </style>

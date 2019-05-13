@@ -41,7 +41,6 @@ import * as firebase from 'firebase'
       
         eliminate(item){
           var ref = firebase.database().ref('/users');
-
           ref.once('value', (snapshot) => {
             snapshot.forEach((child) => {
                 if(child.val().email ==  item.email) {
@@ -55,7 +54,6 @@ import * as firebase from 'firebase'
                 }
               })
             })
-            
           }, 
         deleteUser (key, item) {
          

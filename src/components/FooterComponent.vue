@@ -53,8 +53,6 @@ export default {
 <style scoped>
 #main{
   width: 100%;
-  padding-top: 150px;
-  margin-top: 20px;
 }
 .footer{
   border-top: 1px solid white;

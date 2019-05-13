@@ -1,5 +1,8 @@
 <template>
   <div class="main">
+    <div class="content-main">
+      
+    </div>
     <v-icon @click="goToMainScreen" color="white">arrow_back</v-icon> 
     <div class="container-login">
 
@@ -203,6 +206,7 @@ export default {
  top: 16px;
  font-size: 48px;
 }
+
 .container-login{
   display: flex;
   flex-direction: column;
