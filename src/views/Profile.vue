@@ -171,13 +171,14 @@ import FooterComponent from '@/components/FooterComponent.vue';
                 var repeatpass= document.getElementById("passwd2").value;
                 if(newpass.length < 6){
                   document.getElementById("ErrorPasswd").innerHTML="Las contraseñas debe tener 6 caracteres";
-                }
-               
-                if(newpass !==repeatpass){
+                  this.FailModify=true;
+                } else if(newpass !==repeatpass){
                   document.getElementById("ErrorPasswd").innerHTML="Las contraseñas no coinciden";
                   this.FailModify=true;
+                }else {
+                  this.updateProfile()
                 }
-                this.updateProfile()
+                
             }else{
                document.getElementById("ErrorForm").innerHTML="";
                document.getElementById("ErrorPasswd").innerHTML="";
